@@ -1,9 +1,23 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
 const MoodTracker = () => {
   const [mood, setMood] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [advice, setAdvice] = useState('');
+  
+  const sendApiRequest = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/mood', {
+        mood: mood,
+      });
+  
+      console.log('API Response:', response.data);
+    } catch (error) {
+      console.error('Error making API request:', error);
+    }
+  };
+  
   const handleInputChange = (e) => {
     setMood(e.target.value);
   };
@@ -29,6 +43,7 @@ const MoodTracker = () => {
     console.log(`User feels: ${mood}`);
     console.log(`Advice: ${advice}`);
     setSubmitted(true);
+    sendApiRequest();
   };
 
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 
 const MoodTracker = () => {
@@ -6,6 +6,14 @@ const MoodTracker = () => {
   const [submitted, setSubmitted] = useState(false);
   const [advice, setAdvice] = useState('');
   
+
+  useEffect(() => {
+    const hasSubmittedToday = localStorage.getItem('hasSubmittedToday');
+    if (hasSubmittedToday) {
+      setSubmitted(true);
+    }
+  }, []);
+
   const sendApiRequest = async () => {
     try {
       const response = await axios.post('http://localhost:3001/api/mood', {

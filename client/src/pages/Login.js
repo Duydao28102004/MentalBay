@@ -2,10 +2,12 @@
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -21,10 +23,11 @@ const Login = () => {
         username: username,
         password: password,
       });
-
+  
       console.log('API Response:', response.data);
+      navigate('/');
     } catch (error) {
-      console.error('Error making API request:', error);
+      console.error('Error making API request:', error.response.data);
     }
   };
 

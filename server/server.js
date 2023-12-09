@@ -37,9 +37,36 @@ app.post('/api/register', async (req, res) => {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     // create a new user
     const user = await User.create(req.body);
+    return res.status(201).json({
+      success: true,
+      message: 'User registered successfully',
+    });
   } catch (error) {
     // Handle errors
     res.status(400).json({ error: error.message });
+  }
+});
+
+app.post('/api/login', async (req, res) => {
+  try {
+    const user = await User.findOne({ username: req.body.username });
+
+    if (user) {
+      const result = await bcrypt.compare(req.body.password, user.password);
+      if (result) {
+        console.log("Successfully logged in");
+        return res.status(201).json({
+          success: true,
+          message: 'User logged in successfully',
+        });
+      } else {
+        return res.status(401).json({ error: 'Wrong password' });
+      }
+    } else {
+      return res.status(401).json({ error: 'Wrong username' });
+    }
+  } catch (error) {
+    res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 

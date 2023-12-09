@@ -1,6 +1,6 @@
 # MentalBay
 
 for frontend: tailwind
-for backend: express, mongoose, bcrypt, merceLogged 
+for backend: express, mongoose, bcrypt, mercedlogger 
 
 npm install mongodb@latest

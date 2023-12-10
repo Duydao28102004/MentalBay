@@ -8,6 +8,7 @@ const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('');
+  const [userTopic, setUserTopic] = useState('');
   const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
@@ -20,6 +21,9 @@ const Register = () => {
 
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
+  };
+  const handleUserTopicChange = (e) => {
+    setUserTopic(e.target.value);
   };
 
   const sendApiRequest = async () => {
@@ -43,6 +47,7 @@ const Register = () => {
     console.log('Username:', username);
     console.log('Password:', password);
     console.log('userType:', userType);
+    console.log('userTopic:', userTopic);
     sendApiRequest();
   };
 
@@ -81,6 +86,22 @@ const Register = () => {
                 </option>
                 <option value="doctor">Doctor</option>
                 <option value="user">User</option>
+           </select>
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-semibold mb-2">User Topic:</label>
+            <select
+            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+            value={userTopic}
+            onChange={handleUserTopicChange}
+            >
+                <option value="" disabled selected>
+                --- Select your topic ---
+                </option>
+                <option value="depression">Appetite, sleep disturbances, and fatigue.</option>
+                <option value="anxietydisorders">Excessive worry, fear, and avoidance behaviors.</option>
+                <option value="bipolardisorders">Mood swings, ranging from manic to depressive episodes.</option>
+                <option value="ocd"> Persistent, epetitive behaviors or mental acts (compulsions).</option>
            </select>
           </div>
           <button

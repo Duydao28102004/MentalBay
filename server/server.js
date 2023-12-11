@@ -4,12 +4,20 @@ const cors = require('cors');
 const Mood = require('./models/Mood');
 const User = require('./models/User');
 const bcrypt = require('bcrypt');
-
+const session = require('express-session');
 const app = express();
 const PORT = 3001; // Choose the port you want to use
 
 app.use(bodyParser.json());
 app.use(cors());
+
+app.use(
+  session({
+    secret: 'your-secret-key',
+    resave: false,
+    saveUninitialized: true,
+  })
+);
 
 app.post('/api/mood', async (req, res) => {
   try {
@@ -55,6 +63,12 @@ app.post('/api/login', async (req, res) => {
       const result = await bcrypt.compare(req.body.password, user.password);
       if (result) {
         console.log("Successfully logged in");
+        req.session.user = {
+          username,
+          userType,
+          userTopic,
+        };  
+        console.log("success to add in session");    
         return res.status(201).json({
           success: true,
           message: 'User logged in successfully',
@@ -69,6 +83,19 @@ app.post('/api/login', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
+
+app.get('/api/userdata', (req, res) => {
+  // Check if the user is logged in
+  if (req.session.user) {
+    // User is logged in, send user data
+    const userData = req.session.user;
+    res.json(userData);
+  } else {
+    // User is not logged in
+    res.status(401).json({ error: 'Unauthorized' });
+  }
+});
+
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

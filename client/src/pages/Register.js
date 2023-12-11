@@ -88,22 +88,24 @@ const Register = () => {
                 <option value="user">User</option>
            </select>
           </div>
-          <div className="mb-4">
-            <label className="block text-sm font-semibold mb-2">User Topic:</label>
-            <select
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            value={userTopic}
-            onChange={handleUserTopicChange}
-            >
+          {userType === 'user' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold mb-2">User Topic:</label>
+              <select
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                value={userTopic}
+                onChange={handleUserTopicChange}
+              >
                 <option value="" disabled selected>
-                --- Select your topic ---
+                  --- Select your topic ---
                 </option>
                 <option value="depression">Appetite, sleep disturbances, and fatigue.</option>
                 <option value="anxietydisorders">Excessive worry, fear, and avoidance behaviors.</option>
                 <option value="bipolardisorders">Mood swings, ranging from manic to depressive episodes.</option>
-                <option value="ocd"> Persistent, epetitive behaviors or mental acts (compulsions).</option>
-           </select>
-          </div>
+                <option value="ocd">Persistent, repetitive behaviors or mental acts (compulsions).</option>
+              </select>
+            </div>
+          )}
           <button
             className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
             type="submit"

@@ -21,17 +21,15 @@ app.use(
 
 app.post('/api/mood', async (req, res) => {
   try {
-    const { mood } = req.body;
-
+    const { mood , userId } = req.body;
+    console.log(user);
     // Handle the mood as needed
-    console.log('Received mood:', mood);
-
+    console.log('Received data:', mood, " + ", userId);
     // Example usage to save user mood
-    const newUserMood = new Mood({
-      userId: 'user123',
+    const newUserMood = await Mood.create({
+      userId: userId,
       mood: mood,
     });
-
     // Respond with a simple message
     res.json({ message: 'Mood received successfully!' });
   } catch (error) {
@@ -63,15 +61,20 @@ app.post('/api/login', async (req, res) => {
       const result = await bcrypt.compare(req.body.password, user.password);
       if (result) {
         console.log("Successfully logged in");
-        req.session.user = {
-          username,
-          userType,
-          userTopic,
-        };  
+        const userData = {
+          userId: user._id,
+          username: user.username,
+          userType: user.userType,
+          userTopic: user.userTopic,
+        };
+
+        req.session.user = userData;
+
         console.log("success to add in session");    
         return res.status(201).json({
           success: true,
           message: 'User logged in successfully',
+          user: userData,
         });
       } else {
         return res.status(401).json({ error: 'Wrong password' });
@@ -84,17 +87,6 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
-app.get('/api/userdata', (req, res) => {
-  // Check if the user is logged in
-  if (req.session.user) {
-    // User is logged in, send user data
-    const userData = req.session.user;
-    res.json(userData);
-  } else {
-    // User is not logged in
-    res.status(401).json({ error: 'Unauthorized' });
-  }
-});
 
 
 app.listen(PORT, () => {

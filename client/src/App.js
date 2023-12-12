@@ -6,7 +6,8 @@ import Register from './pages/Register';
 
 function App() {
   return (
-    <div className="App">
+
+      <div className="App">
       <BrowserRouter>
         <div className="pages">
           <Routes>
@@ -25,7 +26,7 @@ function App() {
           </Routes>
         </div>
       </BrowserRouter>
-    </div>
+      </div>
   );
 }
 

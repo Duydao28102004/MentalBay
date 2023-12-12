@@ -1,33 +1,23 @@
 import Header from '../components/Header'
 import MoodTracker from '../components/MoodTracker';
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useSession } from '../components/IsLoggedIn';
+import React from 'react';
 
 const Home = () => {
-    const [userData, setUserData] = useState(null);
-
-    useEffect(() => {
-    // Fetch user data after component mounts
-    const fetchUserData = async () => {
-      try {
-        const response = await axios.get('/api/userdata'); // Replace with your actual endpoint
-        setUserData(response.data);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      }
-    };
-
-    fetchUserData();
-  }, []);
-    return (  
-        <div className="home">
-            <h2>
-                <><h1>Hello, {userData.username}</h1></>
-                <Header></Header>
-                <MoodTracker></MoodTracker>
-            </h2>
-        </div>
-    )
+  const { deleteUserData } = useSession();
+  const handleDeleteUserData = () => {
+    deleteUserData();
+  };
+  return (  
+        <><div className="home">
+      <h2>
+        <Header></Header>
+        <MoodTracker></MoodTracker>
+      </h2>
+    </div><div>
+        <button onClick={handleDeleteUserData}>Delete User Data</button>
+      </div></>
+  )
 }
 
 export default Home

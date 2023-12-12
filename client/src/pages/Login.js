@@ -3,11 +3,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { useSession } from '../components/IsLoggedIn';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+  const { updateUserData } = useSession();
 
   const handleUsernameChange = (e) => {
     setUsername(e.target.value);
@@ -25,6 +27,7 @@ const Login = () => {
       });
   
       console.log('API Response:', response.data);
+      updateUserData(response.data.user);
       navigate('/');
     } catch (error) {
       console.error('Error making API request:', error.response.data);

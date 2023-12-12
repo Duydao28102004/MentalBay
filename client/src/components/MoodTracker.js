@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSession } from './IsLoggedIn';
 
 const MoodTracker = () => {
   const [mood, setMood] = useState('');
   const [submitted, setSubmitted] = useState(false);
   const [advice, setAdvice] = useState('');
+  const { userData } = useSession();
   
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const MoodTracker = () => {
   const sendApiRequest = async () => {
     try {
       const response = await axios.post('http://localhost:3001/api/mood', {
+        userId: userData.userId,
         mood: mood,
       });
   
@@ -56,7 +59,7 @@ const MoodTracker = () => {
 
   return (
     <div className='p-4 text-center block justify-between items-center w-3/4 mx-auto mt-10 bg-white rounded-md shadow-md'>
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Welcome back, username!</h2>
+      <h2 className="text-xl font-semibold text-gray-800 mb-4">Welcome back, {userData.username}!</h2>
       <div className="mb-4">
         <h2 className="text-lg font-medium text-gray-700 mb-2">How do you feel today?</h2>
         {!submitted ? (

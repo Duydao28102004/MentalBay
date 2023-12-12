@@ -22,15 +22,11 @@ app.use(
 app.post('/api/mood', async (req, res) => {
   try {
     const { mood , userId } = req.body;
-    console.log(user);
-    // Handle the mood as needed
     console.log('Received data:', mood, " + ", userId);
-    // Example usage to save user mood
     const newUserMood = await Mood.create({
       userId: userId,
       mood: mood,
     });
-    // Respond with a simple message
     res.json({ message: 'Mood received successfully!' });
   } catch (error) {
     res.status(400).json({ error });

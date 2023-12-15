@@ -1,4 +1,4 @@
-import Header from '../components/Header'
+import Header from '../components/Header';
 import MoodTracker from '../components/MoodTracker';
 import { useSession } from '../components/IsLoggedIn';
 import React from 'react';

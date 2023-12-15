@@ -1,14 +1,18 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const Mood = require('./models/Mood');
-const User = require('./models/User');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
 const app = express();
-const PORT = 3001; // Choose the port you want to use
+const PORT = 3001;
 
-app.use(bodyParser.json());
+const Mood = require('./models/Mood');
+const User = require('./models/User');
+const Article = require('./models/Article');
+
+
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ extended: true, limit: '50mb' }));
 app.use(cors());
 
 app.use(
@@ -83,7 +87,47 @@ app.post('/api/login', async (req, res) => {
   }
 });
 
+app.post('/api/createarticle', async (req, res) => {
+  try {
+    // Create a new article instance
+    const newArticle = await Article.create(req.body);
 
+    // Save the article to the database
+    await newArticle.save();
+
+    res.status(201).json({ message: 'Article created successfully', article: newArticle });
+  } catch (error) {
+    console.error('Error creating article:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/article', async (req, res) => {
+  try {
+    const articles = await Article.find();
+    res.json(articles);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/getarticles/:articleId', async (req, res) => {
+  const { articleId } = req.params;
+
+  try {
+    const article = await Article.findById(articleId);
+    
+    if (!article) {
+      return res.status(404).json({ error: 'Article not found' });
+    }
+
+    res.json(article);
+  } catch (error) {
+    console.error('Error fetching article:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);

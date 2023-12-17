@@ -9,6 +9,7 @@ const PORT = 3001;
 const Mood = require('./models/Mood');
 const User = require('./models/User');
 const Article = require('./models/Article');
+const Podcast = require('./models/Podcast');
 
 
 app.use(bodyParser.json({ limit: '50mb' }));
@@ -89,10 +90,8 @@ app.post('/api/login', async (req, res) => {
 
 app.post('/api/createarticle', async (req, res) => {
   try {
-    // Create a new article instance
     const newArticle = await Article.create(req.body);
 
-    // Save the article to the database
     await newArticle.save();
 
     res.status(201).json({ message: 'Article created successfully', article: newArticle });
@@ -125,6 +124,47 @@ app.get('/api/getarticles/:articleId', async (req, res) => {
     res.json(article);
   } catch (error) {
     console.error('Error fetching article:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.post('/api/createpodcast', async (req, res) => {
+  try {
+    const newPodcast = await Podcast.create(req.body);
+
+    await newPodcast.save();
+
+    res.status(201).json({ message: 'Podcast created successfully', podcast: newPodcast });
+  } catch (error) {
+    console.error('Error creating podcast:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/podcast', async (req, res) => {
+  try {
+    const podcasts = await Podcast.find();
+    res.json(podcasts);
+  } catch (error) {
+    console.error('Error fetching podcasts:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+app.get('/api/getpodcast/:podcastId', async (req, res) => {
+  const { podcastId } = req.params;
+
+  try {
+    const podcast = await Podcast.findById(podcastId);
+    
+    if (!podcast) {
+      return res.status(404).json({ error: 'Podcast not found' });
+    }
+
+    res.json(podcast);
+  } catch (error) {
+    console.error('Error fetching podcast:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

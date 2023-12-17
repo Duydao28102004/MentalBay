@@ -1,24 +1,24 @@
-import Header from '../components/Header'
-import ArticleForm from '../components/ArticleForm';
+import Header from '../components/Header';
+import PodcastForm from '../components/PodcastForm';
 import React, { useEffect} from 'react';
 import { useCheckAuth } from '../components/checkauth';
 
 
+const CreatePodcast = () => {
 
-const CreateArticle = () => {
   const checkAuth = useCheckAuth();
-
   useEffect(() => {
     checkAuth();
   }, [checkAuth]);
+  
   return (  
     <div className="home">
       <h2>
         <Header></Header>
-        <ArticleForm></ArticleForm>
+        <PodcastForm></PodcastForm>
       </h2>
     </div>
   )
 }
 
-export default CreateArticle;
+export default CreatePodcast;

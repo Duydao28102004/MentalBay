@@ -5,11 +5,12 @@ import Register from './pages/Register';
 import CreateArticle from './pages/CreateArticle';
 import ArticleMenu from './pages/ArticleMenu';
 import ArticleDetail from './pages/ArticleDetail';
-
+import CreatePodcast from './pages/CreatePodcast';
+import PodcastMenu from './pages/PodcastMenu';
+import PodcastDetail from './pages/PodcastDetail';
 
 function App() {
   return (
-
       <div className="App">
       <BrowserRouter>
         <div className="pages">
@@ -37,6 +38,18 @@ function App() {
             <Route 
             path="/articles/detail/:articleId" 
             element={<ArticleDetail />} 
+            />
+            <Route
+              path='/createpodcast'
+              element={<CreatePodcast />}
+            />
+            <Route
+              path='/podcasts'
+              element={<PodcastMenu />}
+            />
+            <Route 
+            path="/podcasts/detail/:podcastId" 
+            element={<PodcastDetail />} 
             />
           </Routes>
         </div>

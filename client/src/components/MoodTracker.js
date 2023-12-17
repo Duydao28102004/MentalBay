@@ -45,7 +45,7 @@ const MoodTracker = () => {
         setAdvice('Feeling calm is wonderful. Take a moment to relax and enjoy tranquility.');
         break;
       default:
-        setAdvice('You have submitted today.');
+        setAdvice('You have submitted today mood.');
     }
   }
 

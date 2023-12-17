@@ -129,6 +129,23 @@ app.get('/api/getarticles/:articleId', async (req, res) => {
   }
 });
 
+app.get('/api/gettodaymood/:userId', async (req, res) => {
+  try {
+    const userId = req.params.userId;
+    const today = new Date().toISOString().split('T')[0];
+    console.log(today);
+    const todayMood = await Mood.findOne({userId: userId, date: today});
+    console.log(todayMood);
+    if (todayMood) {
+      res.json(todayMood);
+    } else {
+      res.json(null);
+    }
+  } catch (error) {
+    console.error('Error fetching mood:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+})
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

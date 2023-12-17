@@ -10,11 +10,44 @@ const MoodTracker = () => {
   
 
   useEffect(() => {
-    const hasSubmittedToday = localStorage.getItem('hasSubmittedToday');
-    if (hasSubmittedToday) {
-      setSubmitted(true);
+    const fetchMood = async () => {
+      try {
+        const response = await axios.get(`http://localhost:3001/api/gettodaymood/${userData.userId}`);
+        console.log("API respone: " + response);
+        const todayMood = response.data;
+        if (!todayMood) {
+          return;
+        } else {
+          setMood(todayMood.Mood);
+          setAdviceByMood(mood);
+          setSubmitted(true);
+        }
+      } catch (error) {
+        console.error('Error fetching mood:', error);
+      }
+    };
+  
+    fetchMood(); // Call the async function inside useEffect
+  }, [mood, userData]);
+  
+  const setAdviceByMood = (mood) => {
+    switch (mood) {
+      case 'happy':
+        setAdvice('Great to hear that you are feeling happy! Enjoy your day!');
+        break;
+      case 'sad':
+        setAdvice('Im sorry to hear that you are feeling sad. Reach out to friends or family for support.');
+        break;
+      case 'excited':
+        setAdvice('Awesome! Embrace the excitement and make the most of your day!');
+        break;
+      case 'calm':
+        setAdvice('Feeling calm is wonderful. Take a moment to relax and enjoy tranquility.');
+        break;
+      default:
+        setAdvice('You have submitted today.');
     }
-  }, []);
+  }
 
   const sendApiRequest = async () => {
     try {
@@ -35,22 +68,7 @@ const MoodTracker = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    switch (mood) {
-      case 'happy':
-        setAdvice('Great to hear that you are feeling happy! Enjoy your day!');
-        break;
-      case 'sad':
-        setAdvice('Im sorry to hear that you are feeling sad. Reach out to friends or family for support.');
-        break;
-      case 'excited':
-        setAdvice('Awesome! Embrace the excitement and make the most of your day!');
-        break;
-      case 'calm':
-        setAdvice('Feeling calm is wonderful. Take a moment to relax and enjoy tranquility.');
-        break;
-      default:
-        setAdvice('Please select a mood to receive advice.');
-    }
+    setAdviceByMood(mood);
     console.log(`User feels: ${mood}`);
     console.log(`Advice: ${advice}`);
     setSubmitted(true);

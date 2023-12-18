@@ -8,6 +8,8 @@ import ArticleDetail from './pages/ArticleDetail';
 import CreatePodcast from './pages/CreatePodcast';
 import PodcastMenu from './pages/PodcastMenu';
 import PodcastDetail from './pages/PodcastDetail';
+import Chat from './pages/Chat';
+import ChatDoctorList from './pages/DoctorChatList';
 
 function App() {
   return (
@@ -50,6 +52,14 @@ function App() {
             <Route 
             path="/podcasts/detail/:podcastId" 
             element={<PodcastDetail />} 
+            />
+            <Route 
+            path="/chat/:chatId" 
+            element={<Chat />} 
+            />
+            <Route 
+            path="/chatlist" 
+            element={<ChatDoctorList />} 
             />
           </Routes>
         </div>

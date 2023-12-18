@@ -1,13 +1,18 @@
 // SessionContext.js
 import { createContext, useEffect, useContext, useState } from 'react';
+
 const SessionContext = createContext();
 
 export const SessionProvider = ({ children }) => {
   const [userData, setUserData] = useState({});
-  const [authenticated, setAuthenticated] = useState(false);
+  const [authenticated, setAuthenticated] = useState(() => {
+    // Set the initial state based on local storage
+    const storedAuthenticated = localStorage.getItem('authenticated');
+    return storedAuthenticated ? JSON.parse(storedAuthenticated) : false;
+  });
+
   useEffect(() => {
     const storedUserData = localStorage.getItem('userData');
-
     if (storedUserData) {
       setUserData(JSON.parse(storedUserData));
     }
@@ -17,16 +22,18 @@ export const SessionProvider = ({ children }) => {
     setUserData({ ...userData, ...newData });
     localStorage.setItem('userData', JSON.stringify(newData));
     setAuthenticated(true);
+    localStorage.setItem('authenticated', JSON.stringify(true));
   };
 
   const deleteUserData = () => {
     setUserData({});
     localStorage.removeItem('userData');
     setAuthenticated(false);
+    localStorage.removeItem('authenticated');
   };
 
   return (
-    <SessionContext.Provider value={{authenticated, userData, updateUserData, deleteUserData }}>
+    <SessionContext.Provider value={{ authenticated, userData, updateUserData, deleteUserData }}>
       {children}
     </SessionContext.Provider>
   );

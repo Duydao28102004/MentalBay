@@ -3,9 +3,21 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const bcrypt = require('bcrypt');
 const session = require('express-session');
+const http = require('http');
+const socketIo = require('socket.io');
+
 const app = express();
+const server = http.createServer(app);
+const io = socketIo(server, {
+    cors: {
+      origin: "http://localhost:3000", // Update with your React app's URL
+      methods: ["GET", "POST"]
+    }
+  });
+
 const PORT = 3001;
 
+const Chat = require('./models/Chat');
 const Mood = require('./models/Mood');
 const User = require('./models/User');
 const Article = require('./models/Article');
@@ -86,6 +98,41 @@ app.post('/api/login', async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Internal Server Error' });
   }
+});
+
+app.get('/api/doctors', async (req, res) => {
+    try {
+      const doctors = await User.find({ userType: 'doctor' });
+      res.json(doctors);
+    } catch (error) {
+      console.error('Error fetching doctors:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
+
+app.post('/api/create-chat-room', async (req, res) => {
+    try {
+      const { doctorname, username } = req.body;
+      console.log(doctorname, username);
+      const chatname = doctorname + username;
+      console.log(chatname);
+
+      // Use await to wait for the result of the promise
+      const currentChat = await Chat.findOne({ chat: chatname });
+
+      if (!currentChat) {
+        // If the chat doesn't exist, create it
+        const chat = await Chat.create({ room: chatname, user: username, doctor: doctorname });
+        res.json({ room: chatname });
+      } else {
+        // If the chat already exists, return its details
+        res.json({ room: chatname });
+      }
+    } catch (error) {
+      console.error('Error creating chat room:', error);
+      res.status(500).json({ error: 'Internal Server Error' });
+    }
 });
 
 app.post('/api/createarticle', async (req, res) => {
@@ -185,7 +232,53 @@ app.get('/api/gettodaymood/:userId', async (req, res) => {
     console.error('Error fetching mood:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-})
-app.listen(PORT, () => {
-  console.log(`Server is running on http://localhost:${PORT}`);
+});
+
+io.on('connection', (socket) => {
+
+  // Handle room joining with a username
+  socket.on('join room', ({ room, username }) => {
+    socket.join(room);
+
+    // Retrieve chat history from the database and emit it to the user
+    Chat.findOne({ room })
+      .then((chat) => {
+        if (chat) {
+          const chatHistory = chat.messages;
+          socket.emit('chat history', chatHistory);
+        }
+      })
+      .catch((error) => {
+        console.error('Error retrieving chat history:', error);
+      });
+
+    io.to(room).emit('room joined', { room, username });
+  });
+
+  // Handle chat messages with a username
+  socket.on('chat message', async ({ message, room, username }) => {
+    // Save the message to the database
+    try {
+      const chat = await Chat.findOne({ room });
+      if (chat) {
+        chat.messages.push({ username, message });
+        await chat.save();
+      } else {
+        await Chat.create({ room, messages: [{ username, message }] });
+      }
+    } catch (error) {
+      console.error('Error saving chat message:', error);
+    }
+
+    io.to(room).emit('chat message', { message, username });
+  });
+
+  socket.on('disconnect', () => {
+    console.log('User disconnected');
+  });
+});
+
+
+server.listen(PORT, () => {
+    console.log(`Server is running on http://localhost:${PORT}`);
 });

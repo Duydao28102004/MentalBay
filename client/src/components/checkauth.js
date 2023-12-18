@@ -6,7 +6,7 @@ export const useCheckAuth = () => {
   const navigate = useNavigate();
 
   const checkAuth = () => {
-    if (!authenticated) {
+    if (authenticated === false) {
       navigate('/login');
     }
   };

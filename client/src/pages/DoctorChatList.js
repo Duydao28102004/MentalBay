@@ -27,7 +27,8 @@ const ChatDoctorList = () => {
 
   const handleChatRoomCreation = async (doctorname, username) => {
     try {
-        console.log(doctorname,username);
+      console.log(doctorname,username);
+        
       // Call the API to create a chat room
       const response = await axios.post('http://localhost:3001/api/create-chat-room', {
         doctorname,
@@ -43,21 +44,28 @@ const ChatDoctorList = () => {
 
   return (
     <>
-    <Header></Header>
-    <div>
-      <h2>Chat with Doctors</h2>
-      <ul>
-        {doctors.map((doctor) => (
-          <li key={doctor._id}>
-            <button onClick={() => handleChatRoomCreation(doctor.username, userData.username)}>
-              Chat with {doctor.username}
-            </button>
-          </li>
-        ))}
-      </ul>
-    </div>
+      <Header></Header>
+      <div className="flex items-center justify-center ">
+        <div className="p-4 w-3/4">
+          <h2 className="text-2xl font-bold mb-4">Chat with Doctors</h2>
+          <ul className="space-y-4">
+            {doctors.map((doctor) => (
+              <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-4 shadow-md">
+                <span className="text-lg font-semibold">{doctor.username}</span>
+                <button
+                  onClick={() => handleChatRoomCreation(doctor.username, userData.username)}
+                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
+                >
+                  Chat
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
     </>
   );
+  
 };
 
 export default ChatDoctorList;

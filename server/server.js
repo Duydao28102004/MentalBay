@@ -112,30 +112,38 @@ app.get('/api/doctors', async (req, res) => {
 
 
 app.post('/api/create-chat-room', async (req, res) => {
-    try {
-      const { doctorname, username } = req.body;
-      const chatname = doctorname + username;
+  try {
+    const { doctorname, username } = req.body;
+    const chatname = doctorname + username;
+
+    // Check if the chat room already exists
+    const existingChat = await Chat.findOne({ room: chatname });
+
+    if (existingChat) {
+      // If the chat room exists, respond with the existing room
       res.json({ room: chatname });
-    } catch (error) {
-      console.error('Error creating chat room:', error);
-      res.status(500).json({ error: 'Internal Server Error' });
+    } else {
+      // If the chat room doesn't exist, create one
+      await Chat.create({ room: chatname, user: username, doctor: doctorname, messages: [] });
+      res.json({ room: chatname });
     }
+  } catch (error) {
+    console.error('Error creating or finding chat room:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.get('/api/chats/:doctor', async (req, res) => {
   try {
-    console.log('function called');
-    const doctor = req.params.doctor;
-    console.log(doctor);
+    const doctorname = req.params.doctor;
 
-    // Find all chats with the specified doctor
-    const chats = await Chat.find({ doctor });
-    console.log(chats);
+    // Use a regular expression to find rooms that contain the specified doctorname
+    const chats = await Chat.find({ doctor: doctorname });
 
     // Extract room and user information from each chat
     const chatInfo = chats.map(chat => ({
       room: chat.room,
-      user: chat.user
+      user: chat.user,
     }));
 
     res.json({ chatInfo });

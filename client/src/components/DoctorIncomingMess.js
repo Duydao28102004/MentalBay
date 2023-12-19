@@ -26,7 +26,7 @@ const DoctorIncomingMess = () => {
   }, [userData.username]);
 
   return (
-    <div className="max-w-md mx-auto p-4 bg-white rounded shadow">
+    <div className="max-w-md mt-10 mx-auto p-4 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">User Incoming Chat:</h2>
       {userChat.length > 0 ? (
         <ul className="list-disc pl-4">

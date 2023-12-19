@@ -114,25 +114,35 @@ app.get('/api/doctors', async (req, res) => {
 app.post('/api/create-chat-room', async (req, res) => {
     try {
       const { doctorname, username } = req.body;
-      console.log(doctorname, username);
       const chatname = doctorname + username;
-      console.log(chatname);
-
-      // Use await to wait for the result of the promise
-      const currentChat = await Chat.findOne({ chat: chatname });
-
-      if (!currentChat) {
-        // If the chat doesn't exist, create it
-        const chat = await Chat.create({ room: chatname, user: username, doctor: doctorname });
-        res.json({ room: chatname });
-      } else {
-        // If the chat already exists, return its details
-        res.json({ room: chatname });
-      }
+      res.json({ room: chatname });
     } catch (error) {
       console.error('Error creating chat room:', error);
       res.status(500).json({ error: 'Internal Server Error' });
     }
+});
+
+app.get('/api/chats/:doctor', async (req, res) => {
+  try {
+    console.log('function called');
+    const doctor = req.params.doctor;
+    console.log(doctor);
+
+    // Find all chats with the specified doctor
+    const chats = await Chat.find({ doctor });
+    console.log(chats);
+
+    // Extract room and user information from each chat
+    const chatInfo = chats.map(chat => ({
+      room: chat.room,
+      user: chat.user
+    }));
+
+    res.json({ chatInfo });
+  } catch (error) {
+    console.error('Error retrieving chats:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 });
 
 app.post('/api/createarticle', async (req, res) => {

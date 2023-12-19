@@ -2,6 +2,7 @@ import Header from '../components/Header';
 import MoodTracker from '../components/MoodTracker';
 import { useSession } from '../components/IsLoggedIn';
 import { useCheckAuth } from '../components/checkauth';
+import DoctorIncomingMess from '../components/DoctorIncomingMess';
 
 import React, { useEffect} from 'react';
 import DoctorButton from '../components/DoctorButton';
@@ -23,7 +24,10 @@ const Home = () => {
       <h2>
         <Header></Header>
         {userData.userType === 'doctor' ? (
+            <>
             <DoctorButton />
+            <DoctorIncomingMess />
+            </>
           ) : (
             <MoodTracker />
         )}

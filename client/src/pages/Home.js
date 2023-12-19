@@ -5,6 +5,7 @@ import { useCheckAuth } from '../components/checkauth';
 import DoctorIncomingMess from '../components/DoctorIncomingMess';
 
 import React, { useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import DoctorButton from '../components/DoctorButton';
 
 const Home = () => {
@@ -25,18 +26,31 @@ const Home = () => {
         <Header></Header>
         {userData.userType === 'doctor' ? (
             <>
-            <DoctorButton />
             <DoctorIncomingMess />
+            <DoctorButton />
             </>
           ) : (
+            <>
             <MoodTracker />
+            <div className="mt-4 flex justify-center">
+              <Link to="/chatlist" className="bg-green-500 hover:bg-green-600 mx-auto text-white font-bold py-2 px-4 rounded">
+                Go to Doctor List Chat
+              </Link>
+            </div>
+            
+            </>
         )}
       </h2>
     </div>
-    <div>
-      <button onClick={handleDeleteUserData}>Delete User Data</button>
+    <div className="mt-4 flex justify-center">
+      <button
+      onClick={handleDeleteUserData}
+      className="bg-red-500 hover:bg-red-600 mx-auto text-white font-bold py-2 px-4 rounded"
+      >
+        Delete User Data
+      </button>
     </div></>
   );
 };
 
-export default Home
+export default Home;

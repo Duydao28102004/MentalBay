@@ -12,6 +12,9 @@ const ChatDoctorList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    if (userData.userType === 'doctor') {
+      navigate('/');
+    }
     // Fetch the list of doctors from your server
     const fetchDoctors = async () => {
       try {
@@ -23,7 +26,7 @@ const ChatDoctorList = () => {
     };
 
     fetchDoctors();
-  }, []);
+  }, [navigate, userData.userType]);
 
   const handleChatRoomCreation = async (doctorname, username) => {
     try {

@@ -54,7 +54,7 @@ const ChatDoctorList = () => {
           <ul className="space-y-4">
             {doctors.map((doctor) => (
               <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-4 shadow-md">
-                <span className="text-lg font-semibold">{doctor.username}</span>
+                <span className="text-lg font-semibold">{doctor.username} - {doctor.userTopic}</span>
                 <button
                   onClick={() => handleChatRoomCreation(doctor.username, userData.username)}
                   className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"

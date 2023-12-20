@@ -32,6 +32,7 @@ const Register = () => {
         username: username,
         password: password,
         userType: userType,
+        userTopic: userTopic,
       });
   
       console.log('API Response:', response.data);
@@ -90,7 +91,7 @@ const Register = () => {
           </div>
           {userType === 'user' && (
             <div className="mb-4">
-              <label className="block text-sm font-semibold mb-2">User Topic:</label>
+              <label className="block text-sm font-semibold mb-2">What is your concern?</label>
               <select
                 className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
                 value={userTopic}
@@ -103,6 +104,24 @@ const Register = () => {
                 <option value="anxietydisorders">Excessive worry, fear, and avoidance behaviors.</option>
                 <option value="bipolardisorders">Mood swings, ranging from manic to depressive episodes.</option>
                 <option value="ocd">Persistent, repetitive behaviors or mental acts (compulsions).</option>
+              </select>
+            </div>
+          )}
+          {userType === 'doctor' && (
+            <div className="mb-4">
+              <label className="block text-sm font-semibold mb-2">Major:</label>
+              <select
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                value={userTopic}
+                onChange={handleUserTopicChange}
+              >
+                <option value="" disabled selected>
+                  --- Select your major ---
+                </option>
+                <option value="depression">depression</option>
+                <option value="anxietydisorders">anxietydisorders</option>
+                <option value="bipolardisorders">bipolardisorders</option>
+                <option value="ocd">ocd</option>
               </select>
             </div>
           )}

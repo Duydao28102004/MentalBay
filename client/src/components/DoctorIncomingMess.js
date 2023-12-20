@@ -34,8 +34,7 @@ const DoctorIncomingMess = () => {
             <li key={chatEntry.room} className="mb-2">
               {/* Wrap the content in a Link */}
               <Link to={`/chat/${chatEntry.room}`} className="text-blue-500 hover:underline">
-                <p className="text-lg font-semibold">Room: {chatEntry.room}</p>
-                <p>User: {chatEntry.user}</p>
+                <p className="text-lg font-semibold">User: {chatEntry.user}</p>
               </Link>
             </li>
           ))}

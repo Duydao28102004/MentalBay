@@ -56,6 +56,7 @@ app.post('/api/register', async (req, res) => {
     req.body.password = await bcrypt.hash(req.body.password, 10);
     // create a new user
     const user = await User.create(req.body);
+    console.log(req.body);
     return res.status(201).json({
       success: true,
       message: 'User registered successfully',
@@ -176,6 +177,18 @@ app.get('/api/article', async (req, res) => {
   }
 });
 
+app.get('/api/article/:topic', async (req, res) => {
+  try {
+    const topic = req.params.topic;
+    const articles = await Article.find({ topic: topic });
+    res.json(articles);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
 app.get('/api/getarticles/:articleId', async (req, res) => {
   const { articleId } = req.params;
 
@@ -213,6 +226,18 @@ app.get('/api/podcast', async (req, res) => {
     res.json(podcasts);
   } catch (error) {
     console.error('Error fetching podcasts:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+app.get('/api/podcast/:topic', async (req, res) => {
+  try {
+    const topic = req.params.topic;
+    const podcasts = await Podcast.find({ topic: topic });
+    res.json(podcasts);
+  } catch (error) {
+    console.error('Error fetching articles:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

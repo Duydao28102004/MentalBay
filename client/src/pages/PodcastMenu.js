@@ -3,26 +3,34 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Header from '../components/Header';
 import { Link } from 'react-router-dom';
+import { useSession } from '../components/IsLoggedIn';
 import { useCheckAuth } from '../components/checkauth';
 
 
 const PodcastMenu = () => {
   const [podcasts, setPodcasts] = useState([]);
+  const { userData } = useSession();
   const checkAuth = useCheckAuth();
 
   useEffect(() => {
     const fetchPodcasts = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/podcast');
-        setPodcasts(response.data);
+        if (userData.userType === 'doctor') {
+          const response = await axios.get('http://localhost:3001/api/podcast');
+          setPodcasts(response.data);
+        } else {
+          const response = await axios.get(`http://localhost:3001/api/podcast/${userData.userTopic}`);
+          setPodcasts(response.data);
+        }
       } catch (error) {
         console.error('Error fetching podcasts:', error);
       }
+      
     };
 
     checkAuth();
     fetchPodcasts();
-  }, [checkAuth]);
+  }, [checkAuth, userData]);
 
   return (
     <>

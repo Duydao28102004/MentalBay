@@ -1,26 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { useCheckAuth } from '../components/checkauth';
+import { useSession } from '../components/IsLoggedIn';
 import Header from '../components/Header';
+
 import axios from 'axios';
 
 const ArticleMenu = () => {
   const [articles, setArticles] = useState([]);
+  const { userData } = useSession();
   const checkAuth = useCheckAuth();
 
   useEffect(() => {
     // Fetch articles from the server
     const fetchArticles = async () => {
       try {
-        const response = await axios.get('http://localhost:3001/api/article');
-        setArticles(response.data);
+        if (userData.userType === 'doctor') {
+          const response = await axios.get('http://localhost:3001/api/article');
+          setArticles(response.data);
+        } else {
+          const response = await axios.get(`http://localhost:3001/api/article/${userData.userTopic}`);
+          setArticles(response.data);
+        }
       } catch (error) {
         console.error('Error fetching articles:', error);
       }
     };
     checkAuth();
     fetchArticles();
-  }, [checkAuth]);
+  }, [checkAuth, userData]);
 
   return (
     <>

@@ -10,6 +10,7 @@ import PodcastMenu from './pages/PodcastMenu';
 import PodcastDetail from './pages/PodcastDetail';
 import Chat from './pages/Chat';
 import ChatDoctorList from './pages/DoctorChatList';
+import PieChartPage from './pages/PieChartPage';
 
 function App() {
   return (
@@ -54,12 +55,16 @@ function App() {
             element={<PodcastDetail />} 
             />
             <Route 
-            path="/chat/:chatId" 
+            path="/chat/:chatId/:user" 
             element={<Chat />} 
             />
             <Route 
             path="/chatlist" 
             element={<ChatDoctorList />} 
+            />
+            <Route 
+            path="/charts" 
+            element={<PieChartPage />} 
             />
           </Routes>
         </div>

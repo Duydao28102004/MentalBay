@@ -3,6 +3,7 @@ import io from 'socket.io-client';
 import { useSession } from '../components/IsLoggedIn';
 import { useParams, Link } from 'react-router-dom';
 import Header from '../components/Header';
+import PieChartComponent from '../components/PieChartComponent';
 
 const socket = io('http://localhost:3001'); // Replace with your server URL
 
@@ -12,7 +13,7 @@ function App() {
   const [room, setRoom] = useState('');
   const [username, setUsername] = useState('');
   const { userData } = useSession();
-  const { chatId } = useParams();
+  const { chatId, user } = useParams();
   const messageContainerRef = useRef(null);
 
   useEffect(() => {
@@ -60,6 +61,7 @@ function App() {
   return (
     <div className="flex flex-col h-screen">
       <Header />
+      
       <div className=" mt-20 flex items-center justify-center">
         <div className="p-4 border border-gray-300 rounded shadow-md w-3/4">
           <h2 className="text-lg font-semibold mb-2">Room: {room}</h2>
@@ -96,6 +98,7 @@ function App() {
           </div>
         </div>
       </div>
+      {userData.userType !== 'user' && <PieChartComponent user={user} />}
       <Link
         to="/"
         className="block w-96 mx-auto mt-4 bg-gray-500 text-white p-2 rounded hover:bg-gray-600"

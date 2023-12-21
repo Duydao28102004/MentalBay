@@ -1,14 +1,13 @@
-// Register.js
-
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [userType, setUserType] = useState('');
   const [userTopic, setUserTopic] = useState('');
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   const handleUsernameChange = (e) => {
@@ -22,6 +21,7 @@ const Register = () => {
   const handleUserTypeChange = (e) => {
     setUserType(e.target.value);
   };
+
   const handleUserTopicChange = (e) => {
     setUserTopic(e.target.value);
   };
@@ -34,17 +34,22 @@ const Register = () => {
         userType: userType,
         userTopic: userTopic,
       });
-  
+
       console.log('API Response:', response.data);
       // Redirect to the login page after successful registration
       navigate('/login');
     } catch (error) {
       console.error('Error making API request:', error.response.data);
+
+      if (error.response.status) {
+        setError('Username already exists. Please choose a different username.');
+      }
     }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setError(null);
     console.log('Username:', username);
     console.log('Password:', password);
     console.log('userType:', userType);
@@ -55,7 +60,7 @@ const Register = () => {
   return (
     <div className="flex items-center justify-center h-screen">
       <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h2 className="text-2xl font-semibold mb-6">Register</h2>
+        <h1 className="text-pink-500 text-center text-2xl m-0 mb-11">Wellcome to MentalBay</h1> 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">Username:</label>
@@ -78,16 +83,16 @@ const Register = () => {
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">User Type:</label>
             <select
-            className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
-            value={userType}
-            onChange={handleUserTypeChange}
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+              value={userType}
+              onChange={handleUserTypeChange}
             >
-                <option value="" disabled selected>
+              <option value="" disabled selected>
                 --- Select your role ---
-                </option>
-                <option value="doctor">Doctor</option>
-                <option value="user">User</option>
-           </select>
+              </option>
+              <option value="doctor">Doctor</option>
+              <option value="user">User</option>
+            </select>
           </div>
           {userType === 'user' && (
             <div className="mb-4">
@@ -125,12 +130,23 @@ const Register = () => {
               </select>
             </div>
           )}
-          <button
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none"
-            type="submit"
-          >
-            Register
-          </button>
+          <div className=" mb-4">
+            <span>Already have an account? </span>
+            <Link to='/login' className='text-blue-500 hover:text-blue-600'>Login here!</Link>
+          </div>
+          {error && (
+          <div className="mb-4 text-red-500">
+            <p>{error}</p>
+          </div>
+          )}
+          <div className="text-center mt-10">
+            <button
+              className="bg-green-500 text-white px-5 py-2 w-full rounded hover:bg-green-600 focus:outline-none"
+              type="submit"
+            >
+              Register!
+            </button>
+          </div>
         </form>
       </div>
     </div>

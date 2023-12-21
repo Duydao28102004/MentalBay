@@ -39,7 +39,7 @@ const ChatDoctorList = () => {
       });
       console.log(response.data);
       const chatname = response.data;
-      navigate(`/chat/${chatname.room}`);
+      navigate(`/chat/${chatname.room}/${doctorname}`);
     } catch (error) {
       console.error('Error creating chat room:', error);
     }

@@ -50,6 +50,61 @@ app.post('/api/mood', async (req, res) => {
   }
 });
 
+// Assuming your existing API endpoint looks like this
+app.get('/api/mood-statistics/:username', async (req, res) => {
+  try {
+    const username = req.params.username;
+    const user = await User.findOne({ username: username });
+
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    
+    const userId = user._id.toString();
+    console.log(userId);
+
+    // Count total mood data
+    const totalMoods = await Mood.countDocuments({ userId });
+
+    // Count occurrences of each mood type
+    const moodCounts = await Mood.aggregate([
+      { $match: { userId } },
+      {
+        $group: {
+          _id: '$mood',
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Calculate percentage for each mood type
+    const moodPercentage = moodCounts.map((mood) => ({
+      moodType: mood._id,
+      count: mood.count,
+      percentage: ((mood.count / totalMoods) * 100).toFixed(2),
+    }));
+
+    // Prepare the result
+    const result = {
+      totalMoods,
+      moodCounts: moodPercentage.reduce((acc, mood) => {
+        acc[mood.moodType] = {
+          count: mood.count,
+          percentage: parseFloat(mood.percentage),
+        };
+        return acc;
+      }, {}),
+    };
+
+    res.json(result);
+  } catch (error) {
+    console.error('Error fetching mood statistics:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+
+
 app.post('/api/register', async (req, res) => {
   try {
     // hash the password

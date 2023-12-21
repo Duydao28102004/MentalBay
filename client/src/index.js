@@ -6,7 +6,10 @@ import { SessionProvider } from './components/IsLoggedIn';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <SessionProvider>
+<React.StrictMode>
+<SessionProvider>
     <App />
   </SessionProvider>
+</React.StrictMode>
+  
 );

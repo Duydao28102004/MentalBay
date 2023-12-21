@@ -33,7 +33,7 @@ const DoctorIncomingMess = () => {
           {userChat.map((chatEntry) => (
             <li key={chatEntry.room} className="mb-2">
               {/* Wrap the content in a Link */}
-              <Link to={`/chat/${chatEntry.room}`} className="text-blue-500 hover:underline">
+              <Link to={`/chat/${chatEntry.room}/${chatEntry.user}`} className="text-blue-500 hover:underline">
                 <p className="text-lg font-semibold">User: {chatEntry.user}</p>
               </Link>
             </li>

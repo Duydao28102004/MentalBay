@@ -5,7 +5,6 @@ import { useCheckAuth } from '../components/checkauth';
 import DoctorIncomingMess from '../components/DoctorIncomingMess';
 
 import React, { useEffect} from 'react';
-import { Link } from 'react-router-dom';
 import DoctorButton from '../components/DoctorButton';
 import PieChartComponent from '../components/PieChartComponent'
 import ArticleComponent from '../components/ArticleComponent';
@@ -35,11 +34,7 @@ const Home = () => {
             <>
             <MoodTracker />
             <PieChartComponent user={userData.username} />
-            <div className="mt-4 flex justify-center">
-              <Link to="/chatlist" className="bg-green-500 hover:bg-green-600 mx-auto text-white font-bold py-2 px-4 rounded">
-                Go to Doctor List Chat
-              </Link>
-            </div>
+            
             </>
         )}
       </h2>

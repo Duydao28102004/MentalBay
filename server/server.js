@@ -50,7 +50,6 @@ app.post('/api/mood', async (req, res) => {
   }
 });
 
-// Assuming your existing API endpoint looks like this
 app.get('/api/mood-statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;

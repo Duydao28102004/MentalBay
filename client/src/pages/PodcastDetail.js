@@ -59,7 +59,7 @@ const PodcastDetail = () => {
         />
         <div>
           <strong className="text-lg">{podcast.title}</strong>
-          <p className="text-gray-600">{podcast.topic}</p>
+          <p className="text-gray-600">Topic: {podcast.topic}</p>
           <p className="text-gray-500">Created on: {podcast.createDate}</p>
         </div>
       </div>

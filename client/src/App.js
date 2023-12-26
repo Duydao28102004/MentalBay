@@ -11,6 +11,7 @@ import PodcastDetail from './pages/PodcastDetail';
 import Chat from './pages/Chat';
 import ChatDoctorList from './pages/DoctorChatList';
 import PieChartPage from './pages/PieChartPage';
+import Chatbot from './pages/Chatbot';
 
 function App() {
   return (
@@ -65,6 +66,10 @@ function App() {
             <Route 
             path="/charts" 
             element={<PieChartPage />} 
+            />
+            <Route 
+            path="/chatbot" 
+            element={<Chatbot />} 
             />
           </Routes>
         </div>

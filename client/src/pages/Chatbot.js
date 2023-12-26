@@ -6,7 +6,6 @@ import { useEffect, useRef, useState } from 'react';
 import { sendUserQuestion } from '../components/openai';
 import Header from '../components/Header';
 import { useCheckAuth } from '../components/checkauth';
-import { useSession } from '../components/IsLoggedIn';
 
 function App() {
   const msgEnd = useRef(null);
@@ -19,7 +18,6 @@ function App() {
     },
   ]);
 
-  const {userData} = useSession();
   const checkAuth = useCheckAuth();
   useEffect(() => {
     checkAuth();

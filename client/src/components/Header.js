@@ -23,17 +23,17 @@ const Header = () => {
             </a>
           </Link>
           {userData.userType !== 'doctor' && (
-            <Link to={'/chatlist'}>
+            <><Link to={'/chatlist'}>
               <a className="mx-4" href="/">
                 Messages
               </a>
             </Link>
-          )}
-          <Link to={'/'}>
-            <a className="mx-4" href="/contact">
-              Contact
-            </a>
-          </Link>
+            <Link to={'/chatbot'}>
+              <a className="mx-4" href="/contact">
+                Chatbot
+              </a>
+            </Link></>
+          )}        
         </div>
       </nav>
     </header>

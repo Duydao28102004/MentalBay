@@ -1,7 +1,5 @@
-import gptLogo from '../assets/chatgpt.svg';
 import sendBtn from '../assets/send.svg';
 import userIcon from '../assets/user-icon.png';
-import gptImgLogo from '../assets/chatgptLogo.svg';
 import { useEffect, useRef, useState } from 'react';
 import { sendUserQuestion } from '../components/openai';
 import Header from '../components/Header';
@@ -65,11 +63,9 @@ function App() {
       <Header />
       <div className="flex h-screen justify-center">
         <div className="mt-10 w-3/4 flex bg-white rounded-md shadow-md">
-          {/* Sidebar */}
           <div className="w-1/4 m-5 bg-gray-200 p-4">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2">
-                <img src={gptLogo} alt="Logo" className="w-6 h-6" />
                 <span className="text-lg font-bold">Mental Health Assistant</span>
               </div>
               <button
@@ -80,14 +76,14 @@ function App() {
               </button>
               <div className="space-y-2">
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 w-full py-2 px-4 rounded"
                   onClick={handleQuery}
                   value={'What is mental health ?'}
                 >
                   What is mental health?
                 </button>
                 <button
-                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 py-2 px-4 rounded"
+                  className="bg-gray-300 hover:bg-gray-400 text-gray-800 w-full py-2 px-4 rounded"
                   onClick={handleQuery}
                   value={'How to maintain good mental health state ?'}
                 >
@@ -96,8 +92,6 @@ function App() {
               </div>
             </div>
           </div>
-
-          {/* Main Content */}
           <div className="w-3/4 p-4">
             <div className="chats overflow-y-auto h-4/5">
               {messages.map((message, i) => (
@@ -107,11 +101,13 @@ function App() {
                     message.isBot ? 'justify-start' : 'justify-end'
                   }`}
                 >
-                  <img
-                    className="w-8 h-8 rounded-full mr-2"
-                    src={message.isBot ? gptImgLogo : userIcon}
-                    alt=""
-                  />
+                  {message.isBot ? null : (
+                    <img
+                      className="w-8 h-8 rounded-full mr-2"
+                      src={userIcon}
+                      alt=""
+                    />
+                  )}
                   <p
                     className={`py-2 px-4 rounded-lg ${
                       message.isBot ? 'bg-blue-500 text-white w-1/2 my-5' : 'bg-gray-300 my-5'
@@ -140,7 +136,7 @@ function App() {
                   <img src={sendBtn} alt="Send" className="w-4 h-4" />
                 </button>
               </div>
-              <p className="text-gray-500">ChatGPT may produce inaccurate information</p>
+              <p className="ml-5 text-gray-500">Our chatbot may generate inaccurate information</p>
             </div>
           </div>
         </div>

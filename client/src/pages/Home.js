@@ -8,6 +8,7 @@ import React, { useEffect} from 'react';
 import DoctorButton from '../components/DoctorButton';
 import PieChartComponent from '../components/PieChartComponent'
 import ArticleComponent from '../components/ArticleComponent';
+import PodcastComponent from '../components/PodcastComponent';
 
 const Home = () => {
   const { deleteUserData , userData} = useSession();
@@ -40,6 +41,7 @@ const Home = () => {
       </h2>
     </div>
     <ArticleComponent></ArticleComponent>
+    <PodcastComponent></PodcastComponent>
     <div className="mt-4 flex justify-center">
       <button
       onClick={handleDeleteUserData}

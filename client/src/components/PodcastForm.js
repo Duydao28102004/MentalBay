@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
+
 
 const CreatePodcast = () => {
   const [formData, setFormData] = useState({
@@ -10,6 +12,7 @@ const CreatePodcast = () => {
     detail: '',
     base64Image: '',
   });
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
@@ -41,6 +44,7 @@ const CreatePodcast = () => {
     try {
       const response = await axios.post('http://localhost:3001/api/createpodcast', formData);
       console.log(response.data);
+      navigate('/podcasts');
     } catch (error) {
       console.error('Error creating podcast:', error);
     }

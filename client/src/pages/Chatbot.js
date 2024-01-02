@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import { sendUserQuestion } from '../components/openai';
 import Header from '../components/Header';
 import { useCheckAuth } from '../components/checkauth';
+import { Link } from 'react-router-dom';
 
 function App() {
   const msgEnd = useRef(null);
@@ -66,7 +67,7 @@ function App() {
           <div className="w-1/4 m-5 bg-gray-200 p-4">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2">
-                <span className="text-lg font-bold">Mental Health Assistant</span>
+                <span className="text-lg font-bold">MentalBay Assistant</span>
               </div>
               <button
                 className="bg-blue-500 text-white py-2 px-4 rounded"
@@ -137,6 +138,11 @@ function App() {
                 </button>
               </div>
               <p className="ml-5 text-gray-500">Our chatbot may generate inaccurate information</p>
+              <div className="mt-12 text-right">
+                <Link to="/" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
+                  ← Back to homepage
+                </Link>
+              </div>
             </div>
           </div>
         </div>

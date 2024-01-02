@@ -43,6 +43,7 @@ function isMentalHealthQuestion(question) {
     'joyful',
     'fearful',
     'how',
+    'nervous',
   ];
 
   // Check if the question contains any of the mental health keywords

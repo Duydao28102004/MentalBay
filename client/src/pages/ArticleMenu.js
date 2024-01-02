@@ -46,7 +46,8 @@ const ArticleMenu = () => {
               />
               <div>
                 <strong className="text-lg">{article.title}</strong>
-                <p className="text-gray-600">{article.description}</p>
+                <p className="text-gray-600">Topic: {article.topic}</p>
+                <p className="text-gray-600">Description: {article.description}</p>
                 <p className="text-gray-600">{article.createDate}</p>
               </div>
             </Link>

@@ -44,7 +44,7 @@ const PodcastComponent = () => {
                             />
                             <div>
                                 <strong className="text-lg">{podcast.title}</strong>
-                                <p className="text-gray-600">{podcast.description}</p>
+                                <p className="text-gray-600">{podcast.topic}</p>
                                 <p className="text-gray-600">{podcast.createDate}</p>
                             </div>
                         </Link>

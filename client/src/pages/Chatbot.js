@@ -137,7 +137,6 @@ function App() {
                   <img src={sendBtn} alt="Send" className="w-4 h-4" />
                 </button>
               </div>
-              <p className="ml-5 text-gray-500">Our chatbot may generate inaccurate information</p>
               <div className="mt-12 text-right">
                 <Link to="/" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
                   ← Back to homepage

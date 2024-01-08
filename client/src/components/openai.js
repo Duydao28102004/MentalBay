@@ -80,7 +80,7 @@ export async function sendUserQuestion(question) {
         { role: 'user', content: question },
       ],
       temperature: 0.5,
-      max_tokens: 250,
+      max_tokens: 150,
       presence_penalty: 0.7,
       frequency_penalty: 0.7,
       

@@ -44,6 +44,42 @@ function isMentalHealthQuestion(question) {
     'fearful',
     'how',
     'nervous',
+    'phobia',
+    'panic',
+    'lonely',
+    'hopeless',
+    'helpless',
+    'worthless',
+    'fatigue',
+    'insomnia',
+    'appetite',
+    'concentration',
+    'self-harm',
+    'self-esteem',
+    'therapy',
+    'medication',
+    'counseling',
+    'suicidal',
+    'grief',
+    'loss',
+    'relationship',
+    'trauma',
+    'obsessive-compulsive disorder',
+    'ocd',
+    'self-care',
+    'self-love',
+    'love',
+    'loves',
+    'hurt',
+    'harm',
+    'autism',
+    'diagnosis',
+    'cause',
+    'treatment',
+    'condition',
+    'effect',
+    'side effect',
+    'improvement',
   ];
 
   // Check if the question contains any of the mental health keywords
@@ -58,8 +94,6 @@ function isMentalHealthQuestion(question) {
     /(how|what|why|when|where|can|should)\s+(to|do|I|you|we)\s*(feel|handle|manage|deal)\s*(better|with|stress|anxiety|depression)/.test(
       normalizedQuestion
     );
-
-  // Add more constraints as needed based on your specific requirements
 
   // Combine the constraints using logical OR
   return hasMentalHealthKeyword || hasMentalHealthPattern || isMentalHealthQuestionForm;

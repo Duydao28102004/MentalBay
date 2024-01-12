@@ -36,7 +36,7 @@ const ArticleComponent = () => {
         <h2 className="text-2xl font-bold mb-4">Recent aritcles</h2>
         <div className="flex flex-wrap gap-4">
         {displayedArticles.map((article) => (
-          <div key={article._id} className="w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
+          <div key={article._id} className="w-full md:w-1/2 lg:w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
             <Link to={`/articles/detail/${article._id}`} className="items-center">
               <img
                 src={article.base64Image}

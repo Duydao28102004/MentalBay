@@ -35,7 +35,7 @@ const PodcastComponent = () => {
             <h2 className="text-2xl font-bold mb-4">Recent podcasts</h2>
             <div className="flex flex-wrap gap-4">
                 {displayedPodcasts.map((podcast) => (
-                    <div key={podcast._id} className="w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
+                    <div key={podcast._id} className="w-full md:w-1/2 lg:w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
                         <Link to={`/podcasts/detail/${podcast._id}`} className="items-center">
                             <img
                                 src={podcast.base64Image}

@@ -47,7 +47,7 @@ const PieChartPage = ({ user }) => {
             options={chartOptions}
             series={Object.values(moodData.moodCounts).map((mood) => mood.percentage)}
             type="pie"
-            width="380"
+            width="100%"
           />
         </div>
       )}

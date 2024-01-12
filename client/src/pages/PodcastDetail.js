@@ -50,7 +50,7 @@ const PodcastDetail = () => {
   return (
     <>
     <Header />
-    <div className="max-w-2xl mx-auto mt-8 p-4 bg-white rounded shadow-lg">
+    <div className="w-3/4 lg:w-full mx-auto mt-8 p-4 bg-white rounded shadow-lg">
       <div className="flex items-center mb-4">
         <img
           src={podcast.base64Image}

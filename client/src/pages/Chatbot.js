@@ -64,7 +64,7 @@ function App() {
       <Header />
       <div className="flex h-screen justify-center">
         <div className="mt-10 w-3/4 flex bg-white rounded-md shadow-md">
-          <div className="w-1/4 m-5 bg-gray-200 p-4">
+          <div className="hidden lg:block w-1/4 m-5 bg-gray-200 p-4">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2">
                 <span className="text-lg font-bold">MentalBay Assistant</span>
@@ -93,7 +93,7 @@ function App() {
               </div>
             </div>
           </div>
-          <div className="w-3/4 p-4">
+          <div className="w-full lg:w-3/4 p-4">
             <div className="chats overflow-y-auto h-4/5">
               {messages.map((message, i) => (
                 <div
@@ -111,7 +111,7 @@ function App() {
                   )}
                   <p
                     className={`py-2 px-4 rounded-lg ${
-                      message.isBot ? 'bg-blue-500 text-white w-1/2 my-5' : 'bg-gray-300 my-5'
+                      message.isBot ? 'bg-blue-500 text-white w-3/4 lg:w-1/2 my-5' : 'bg-gray-300 my-5'
                     }`}
                   >
                     {message.text}

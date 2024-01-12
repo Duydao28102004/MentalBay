@@ -35,7 +35,7 @@ const PodcastMenu = () => {
   return (
     <>
     <Header></Header>
-    <div className="max-w-xl mx-auto mt-8 p-4 bg-white rounded shadow-lg">
+    <div className="w-3/4 lg:w-full mx-auto mt-8 p-4 bg-white rounded shadow-lg">
       <h2 className="text-2xl font-semibold mb-4">Podcast Menu</h2>
       <ul>
         {podcasts.map((podcast) => (

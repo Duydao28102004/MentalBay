@@ -13,6 +13,9 @@ function isMentalHealthQuestion(question) {
   const mentalHealthKeywords = [
     'hello',
     'hi',
+    'how',
+    'who',
+    'what',
     'mental',
     'emotional',
     'well-being',
@@ -42,7 +45,6 @@ function isMentalHealthQuestion(question) {
     'sorrowful',
     'joyful',
     'fearful',
-    'how',
     'nervous',
   ];
 

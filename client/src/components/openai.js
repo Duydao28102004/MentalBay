@@ -46,6 +46,42 @@ function isMentalHealthQuestion(question) {
     'joyful',
     'fearful',
     'nervous',
+    'phobia',
+    'panic',
+    'lonely',
+    'hopeless',
+    'helpless',
+    'worthless',
+    'fatigue',
+    'insomnia',
+    'appetite',
+    'concentration',
+    'self-harm',
+    'self-esteem',
+    'therapy',
+    'medication',
+    'counseling',
+    'suicidal',
+    'grief',
+    'loss',
+    'relationship',
+    'trauma',
+    'obsessive-compulsive disorder',
+    'ocd',
+    'self-care',
+    'self-love',
+    'love',
+    'loves',
+    'hurt',
+    'harm',
+    'autism',
+    'diagnosis',
+    'cause',
+    'treatment',
+    'condition',
+    'effect',
+    'side effect',
+    'improvement',
   ];
 
   // Check if the question contains any of the mental health keywords
@@ -61,8 +97,6 @@ function isMentalHealthQuestion(question) {
       normalizedQuestion
     );
 
-  // Add more constraints as needed based on your specific requirements
-
   // Combine the constraints using logical OR
   return hasMentalHealthKeyword || hasMentalHealthPattern || isMentalHealthQuestionForm;
 }
@@ -75,6 +109,9 @@ export async function sendUserQuestion(question) {
       return 'I am here to help with mental health-related questions. Please ask me about mental health topics.';
     }
 
+    // Determine dynamic max_tokens based on the length of the user's question
+    const maxTokens = Math.min(150, Math.ceil(question.length * 0.1));
+
     const response = await openai.chat.completions.create({
       model: 'gpt-3.5-turbo',
       messages: [
@@ -82,7 +119,7 @@ export async function sendUserQuestion(question) {
         { role: 'user', content: question },
       ],
       temperature: 0.5,
-      max_tokens: 150,
+      max_tokens: maxTokens,
       presence_penalty: 0.7,
       frequency_penalty: 0.7,
       
@@ -92,6 +129,6 @@ export async function sendUserQuestion(question) {
     return response.choices[0]?.message?.content || '';
   } catch (error) {
     console.error('OpenAI API Error:', error.message);
-    throw error;
+    return 'I apologize, but I encountered an issue. Please try asking your question again.';
   }
 }

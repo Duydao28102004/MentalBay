@@ -2,7 +2,6 @@ import React, { useState, useEffect, useLayoutEffect, useRef } from 'react';
 import io from 'socket.io-client';
 import { useSession } from '../components/IsLoggedIn';
 import { useParams, Link } from 'react-router-dom';
-import Header from '../components/Header';
 import PieChartComponent from '../components/PieChartComponent';
 
 const socket = io('http://localhost:3001'); // Replace with your server URL
@@ -60,7 +59,6 @@ function App() {
 
   return (
     <div className="flex flex-col h-screen">
-      <Header />
       
       <div className=" mt-20 flex items-center justify-center">
         <div className="p-4 border border-gray-300 rounded shadow-md w-3/4">

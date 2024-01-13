@@ -12,12 +12,15 @@ import Chat from './pages/Chat';
 import ChatDoctorList from './pages/DoctorChatList';
 import PieChartPage from './pages/PieChartPage';
 import Chatbot from './pages/Chatbot';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 function App() {
   return (
       <div className="App">
       <BrowserRouter>
         <div className="pages">
+          <Header></Header>
           <Routes>
             <Route
               path='/'
@@ -72,6 +75,7 @@ function App() {
             element={<Chatbot />} 
             />
           </Routes>
+          <Footer></Footer>
         </div>
       </BrowserRouter>
       </div>

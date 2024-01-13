@@ -2,9 +2,11 @@
 
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
 import { useNavigate } from 'react-router-dom';
 import { useSession } from '../components/IsLoggedIn';
+
+import doctorIcon from '../assets/doctor-icon.png';
+import doctorAva from '../assets/doctor-ava.png';
 
 const ChatDoctorList = () => {
   const [doctors, setDoctors] = useState([]);
@@ -47,23 +49,30 @@ const ChatDoctorList = () => {
 
   return (
     <>
-      <Header></Header>
       <div className="flex items-center justify-center ">
         <div className="p-4 w-3/4">
-          <h2 className="text-2xl font-bold mb-4">Chat with Doctors</h2>
-          <ul className="space-y-4">
-            {doctors.map((doctor) => (
-              <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-4 shadow-md">
-                <span className="text-lg font-semibold">{doctor.username} - {doctor.userTopic}</span>
-                <button
-                  onClick={() => handleChatRoomCreation(doctor.username, userData.username)}
-                  className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
-                >
-                  Chat
-                </button>
-              </li>
-            ))}
-          </ul>
+          <div className='flex flex-row'>
+            <img src={doctorAva} alt="doctorimg" className='w-2/4 rounded mr-4'></img>
+            <div className='w-2/4'>
+              <h2 className="text-2xl font-bold mb-4">Having a chat with doctors?</h2>
+              <ul className="space-y-4 ">
+                {doctors.map((doctor) => (
+                  <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-4 shadow-md">
+                    <div className='flex'>
+                      <img src={doctorIcon} alt={doctor.username} className="w-10 h-10 mr-4" />
+                      <span className="text-lg font-semibold">{doctor.username} - {doctor.userTopic}</span>
+                    </div>
+                    <button
+                      onClick={() => handleChatRoomCreation(doctor.username, userData.username)}
+                      className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue"
+                    >
+                      Chat
+                    </button>
+                  </li>
+                ))}
+            </ul>
+            </div>
+          </div>
         </div>
       </div>
     </>

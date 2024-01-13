@@ -1,7 +1,6 @@
 // PodcastMenu.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 import { useSession } from '../components/IsLoggedIn';
 import { useCheckAuth } from '../components/checkauth';
@@ -34,29 +33,39 @@ const PodcastMenu = () => {
 
   return (
     <>
-    <Header></Header>
-    <div className="w-3/4 lg:w-full mx-auto mt-8 p-4 bg-white rounded shadow-lg">
-      <h2 className="text-2xl font-semibold mb-4">Podcast Menu</h2>
-      <ul>
-        {podcasts.map((podcast) => (
-          <li key={podcast._id} className="mb-4 p-4 bg-gray-100 rounded-md">
-            <Link to={`/podcasts/detail/${podcast._id}`} className="flex items-center">
-              <img
-                src={podcast.base64Image}
-                alt={podcast.title}
-                className="w-12 h-12 object-cover rounded-md mr-4"
-              />
-              <div>
-                <strong className="text-lg">{podcast.title}</strong>
-                <p className="text-gray-600">Topic: {podcast.topic}</p>
-                <p className="text-gray-600">Description: {podcast.description}</p>
-                <p className="text-gray-600">{podcast.createDate}</p>
+      <div className="w-3/5 mx-auto mt-8 p-4">
+        <h2 className="text-2xl font-semibold mb-4">Podcast Menu</h2>
+        <ul>
+          {podcasts.map((podcast) => (
+            <div key={podcast._id} className='flex mb-10'>
+              <div className="flex flex-col bg-gray-100 px-4 py-4 rounded">
+                <img
+                  src={podcast.base64Image}
+                  alt={podcast.title}
+                  className="w-full"
+                />
+                <h1 className='text-3xl font-serif mt-10'>{podcast.title}</h1>
+                <div>
+                  <p className="text-gray-500">
+                    Topic: {podcast.topic === 'anxietydisorders' ? 'Anxiety Disorders' :
+                      podcast.topic === 'bipolardisorders' ? 'Bipolar Disorders' :
+                        podcast.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
+                          podcast.topic === 'depression' ? 'Depression' :
+                            podcast.topic}
+                    <span className='ml-12'>Created date: {podcast.createDate}</span>
+                  </p>
+                  <p className="my-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>
+                </div>
+                <Link to={`/podcasts/detail/${podcast._id}`}>
+                  <button className="px-4 py-2 bg-blue-300 text-white rounded-md hover:bg-blue-400">
+                    Read More
+                  </button>
+                </Link>
               </div>
-            </Link>
-          </li>
-        ))}
-      </ul>
-    </div>
+            </div>
+          ))}
+        </ul>
+      </div>
     </>
   );
 };

@@ -28,31 +28,33 @@ const PodcastComponent = () => {
         fetchPodcasts();
     }, [checkAuth, userData]);
 
-    const displayedPodcasts = podcasts.slice(0, 4);
+    const displayedPodcasts = userData.userType === 'doctor' ? podcasts.slice(0, 4) : podcasts.slice(0, 1);
 
     return (
-        <div className='p-4 text-center block justify-between items-center w-3/4 mx-auto mt-10 bg-white rounded-md shadow-md'>
-            <h2 className="text-2xl font-bold mb-4">Recent podcasts</h2>
-            <div className="flex flex-wrap gap-4">
+        <><div className="mb-10">
+            <h1 className="text-4xl text-center font-bold mb-10">Podcasts</h1>
+            <div className="flex flex-col">
                 {displayedPodcasts.map((podcast) => (
-                    <div key={podcast._id} className="w-full md:w-1/2 lg:w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
-                        <Link to={`/podcasts/detail/${podcast._id}`} className="items-center">
-                            <img
-                                src={podcast.base64Image}
-                                alt={podcast.title}
-                                className="w-400 h-400 object-cover rounded-md mr-4"
-                            />
-                            <div>
-                                <strong className="text-lg">{podcast.title}</strong>
-                                <p className="text-gray-600">{podcast.topic}</p>
-                                <p className="text-gray-600">{podcast.createDate}</p>
-                            </div>
-                        </Link>
+                    <>
+                    <div className='flex flex-row my-10'>
+                      <div className='w-1/2'>
+                          <h2 className="text-3xl font-bold mb-4">{podcast.title}</h2>
+                          <p className="mb-4">{podcast.createDate}</p>
+                          <p className="mb-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>
+                          {/* Add more text as needed */}
+                          <Link to={`/podcasts/detail/${podcast._id}`} className="items-center">
+                              <button className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-green-400">
+                                Read More
+                              </button>
+                          </Link>
+                      </div>
+                      <img src={podcast.base64Image}  alt={podcast.title}className="w-full md:w-1/2 h-auto md:ml-8 mb-4 md:mb-0"/>
                     </div>
+                        
+                    </>
                 ))}
             </div>
-        </div>
-
+        </div></>
     );
 };
 

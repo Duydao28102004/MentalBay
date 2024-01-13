@@ -1,4 +1,4 @@
-import Header from '../components/Header';
+
 import PodcastForm from '../components/PodcastForm';
 import React, { useEffect} from 'react';
 import { useCheckAuth } from '../components/checkauth';
@@ -14,7 +14,6 @@ const CreatePodcast = () => {
   return (  
     <div className="home">
       <h2>
-        <Header></Header>
         <PodcastForm></PodcastForm>
       </h2>
     </div>

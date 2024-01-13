@@ -1,8 +1,8 @@
 import sendBtn from '../assets/send.svg';
 import userIcon from '../assets/user-icon.png';
+import botIcon from '../assets/baymax.png';
 import { useEffect, useRef, useState } from 'react';
 import { sendUserQuestion } from '../components/openai';
-import Header from '../components/Header';
 import { useCheckAuth } from '../components/checkauth';
 import { Link } from 'react-router-dom';
 
@@ -61,9 +61,8 @@ function App() {
 
   return (
     <>
-      <Header />
       <div className="flex h-screen justify-center">
-        <div className="mt-10 w-3/4 flex bg-white rounded-md shadow-md">
+        <div className="mt-10 w-3/5 flex bg-white rounded-md shadow-md">
           <div className="hidden lg:block w-1/4 m-5 bg-gray-200 p-4">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2">
@@ -102,7 +101,11 @@ function App() {
                     message.isBot ? 'justify-start' : 'justify-end'
                   }`}
                 >
-                  {message.isBot ? null : (
+                  {message.isBot ? <img
+                      className="w-8 h-8 rounded-full mr-2"
+                      src={botIcon}
+                      alt=""
+                    /> : (
                     <img
                       className="w-8 h-8 rounded-full mr-2"
                       src={userIcon}
@@ -114,6 +117,7 @@ function App() {
                       message.isBot ? 'bg-blue-500 text-white w-3/4 lg:w-1/2 my-5' : 'bg-gray-300 my-5'
                     }`}
                   >
+                    
                     {message.text}
                   </p>
                 </div>

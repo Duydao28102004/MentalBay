@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom';
 import { useCheckAuth } from '../components/checkauth';
 import YoutubeComponent from '../components/YoutubeComponent';
-import Header from '../components/Header';
 import { Link } from 'react-router-dom';
 
 
@@ -41,7 +40,6 @@ const PodcastDetail = () => {
   if (!podcast) 
     return (
       <>
-      <Header />
       <p>Loading...</p>
       </>
       
@@ -49,23 +47,18 @@ const PodcastDetail = () => {
 
   return (
     <>
-    <Header />
-    <div className="w-3/4 lg:w-full mx-auto mt-8 p-4 bg-white rounded shadow-lg">
-      <div className="flex items-center mb-4">
-        <img
-          src={podcast.base64Image}
-          alt={podcast.title}
-          className="w-16 h-16 object-cover rounded-md mr-4"
-        />
-        <div>
+    <div className="w-3/4 mx-auto mt-8 p-4 bg-white rounded shadow-lg">
+    
+      <div className="flex flex-row">
+        <YoutubeComponent videoId={extractYouTubeVideoId(podcast.link)} />
+        <div className=" justify-between mt-8 ml-6">
+          <div className='mb-6'>
           <strong className="text-lg">{podcast.title}</strong>
-          <p className="text-gray-600">Topic: {podcast.topic}</p>
-          <p className="text-gray-500">Created on: {podcast.createDate}</p>
+          <p className="text-gray-600">Topic: {podcast.topic}
+          <span className="text-gray-500 ml-12">Created on: {podcast.createDate}</span></p>
+          </div>
+          <p className="text-gray-700"> <strong>Summary:</strong> {podcast.detail}</p>
         </div>
-      </div>
-      <YoutubeComponent videoId={extractYouTubeVideoId(podcast.link)} />
-      <div className="flex justify-between mt-8">
-        <p className="text-gray-700"> <strong>Summary:</strong> {podcast.detail}</p>
       </div>
       <div className="mt-12 text-right">
         <Link to="/podcasts" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">

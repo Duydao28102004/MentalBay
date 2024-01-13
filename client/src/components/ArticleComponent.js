@@ -8,6 +8,7 @@ const ArticleComponent = () => {
   const [articles, setArticles] = useState([]);
   const { userData } = useSession();
   const checkAuth = useCheckAuth();
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     // Fetch articles from the server
@@ -20,40 +21,47 @@ const ArticleComponent = () => {
           response = await axios.get(`http://localhost:3001/api/article/${userData.userTopic}`);
         }
         setArticles(response.data);
+        setLoading(false); // Set loading to false after fetching articles
       } catch (error) {
         console.error('Error fetching articles:', error);
+        setLoading(false); // Set loading to false on error as well
       }
     };
     checkAuth();
     fetchArticles();
   }, [checkAuth, userData]);
 
-  // Display only the first four articles
-  const displayedArticles = articles.slice(0, 4);
+  // Display only the first four articles if userType is 'doctor'
+  const displayedArticles = userData.userType === 'doctor' ? articles.slice(0, 4) : articles.slice(0, 1);
 
   return (
-    <div className='p-4 text-center block justify-between items-center w-3/4 mx-auto mt-10 bg-white rounded-md shadow-md'>
-        <h2 className="text-2xl font-bold mb-4">Recent aritcles</h2>
-        <div className="flex flex-wrap gap-4">
-        {displayedArticles.map((article) => (
-          <div key={article._id} className="w-full md:w-1/2 lg:w-1/5 mx-auto mb-4 p-4 bg-gray-100 rounded-md">
-            <Link to={`/articles/detail/${article._id}`} className="items-center">
-              <img
-                src={article.base64Image}
-                alt={article.title}
-                className="w-400 h-400 object-cover rounded-md mr-4"
-              />
+    <div className="mb-10">
+      <h1 className="text-4xl text-center font-bold">Articles</h1>
+
+      {loading ? (
+        <p className="text-center">Loading...</p>
+      ) : (
+        <div className="flex flex-col ">
+          {displayedArticles.map((article) => (
+            <React.Fragment key={article._id}>
+              <div className='flex flex-row my-10'>
+              <img src={article.base64Image} alt={article.title} className="w-full md:w-1/2 h-auto md:mr-8 mb-4 md:mb-0" />
               <div>
-                <strong className="text-lg">{article.title}</strong>
-                <p className="text-gray-600">{article.topic}</p>
-                <p className="text-gray-600">{article.createDate}</p>
+                <h2 className="text-3xl font-bold mb-4">{article.title}</h2>
+                <p className="mb-4">{article.createDate}</p>
+                <p className="mb-4">{article.detail.substring(0, 400)}{article.detail.length > 400 ? "..." : ""}</p>
+                <Link to={`/articles/detail/${article._id}`} className="items-center">
+                  <button className="px-4 py-2 bg-blue-300 text-white rounded-md hover:bg-blue-400">
+                    Read More
+                  </button>
+                </Link>
               </div>
-            </Link>
-          </div>
-        ))}
+              </div>
+            </React.Fragment>
+          ))}
+        </div>
+      )}
     </div>
-    </div>
-    
   );
 };
 

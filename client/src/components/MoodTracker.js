@@ -76,13 +76,13 @@ const MoodTracker = () => {
   };
 
   return (
-    <div className='p-4 text-center block justify-between items-center w-3/4 mx-auto mt-10 bg-white rounded-md shadow-md'>
-      <h2 className="text-xl font-semibold text-gray-800 mb-4">Welcome back, {userData.username}!</h2>
+    <div className='p-4 text-center block justify-between items-center w-full mx-auto mt-10 mb-10'>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-4">Welcome back, {userData.username}!</h2>
       <div className="mb-4">
-        <h2 className="text-lg font-medium text-gray-700 mb-2">How do you feel today?</h2>
+        <h2 className="text-2xl font-medium text-gray-700 mb-2">How do you feel <span className='text-green-500'>today</span>?</h2>
         {!submitted ? (
           <form onSubmit={handleSubmit} className="flex items-center justify-center">
-            <label className="mr-2">Select your mood:</label>
+            <label className="mr-2 text-2xl">Select your mood:</label>
             <select
               value={mood}
               onChange={handleInputChange}
@@ -96,15 +96,15 @@ const MoodTracker = () => {
             </select>
             <button
               type="submit"
-              className="ml-2 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+              className="ml-2 px-4 py-2 bg-green-200 text-white rounded-md hover:bg-green-500"
             >
               Submit
             </button>
           </form>
         ) : (
           <div>
-            <p className="text-green-600">Thank you for sharing your mood!</p>
-            <p className="text-lg mt-4">{advice}</p>
+            <p className="text-green-600 text-2xl">Thank you for sharing your mood!</p>
+            <p className="mt-4 text-2xl">{advice}</p>
           </div>
         )}
       </div>

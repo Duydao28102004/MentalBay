@@ -32,7 +32,7 @@ const ArticleDetail = () => {
   }
 
   return (
-    <><div className="w-3/5 mx-auto mt-8 p-4 bg-gray-100 rounded shadow-lg">
+    <><div className="md:w-3/5 w-5/6 mx-auto mt-8 p-4 bg-gray-100 rounded shadow-lg">
       <div className='flex mb-10'>
         <div className="flex flex-col ">
           <img
@@ -47,8 +47,8 @@ const ArticleDetail = () => {
                   article.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
                     article.topic === 'depression' ? 'Depression' :
                       article.topic}
-              <span className='ml-12'>Created date: {article.createDate}</span>
             </p>
+            <p className='text-gray-500'>Created date: {article.createDate}</p>
             <p className="my-4">{article.detail}</p>
           </div>
         </div>

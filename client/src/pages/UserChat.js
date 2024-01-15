@@ -3,7 +3,7 @@ import { useSession } from '../components/IsLoggedIn';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
 
-const DoctorIncomingMess = () => {
+const UserChat = () => {
   const [userChat, setUserChat] = useState([]);
   const { userData } = useSession();
 
@@ -26,7 +26,7 @@ const DoctorIncomingMess = () => {
   }, [userData.username]);
 
   return (
-    <div className="w-full p-4 bg-gray-100 mb-10 rounded shadow">
+    <div className="max-w-md mt-10 mx-auto p-4 bg-white rounded shadow">
       <h2 className="text-2xl font-bold mb-4">User Incoming Chat:</h2>
       {userChat.length > 0 ? (
         <ul className="list-disc pl-4">
@@ -43,7 +43,6 @@ const DoctorIncomingMess = () => {
         <p className="text-gray-500">No incoming chats for the doctor.</p>
       )}
     </div>
-  );
+  ); 
 };
-
-export default DoctorIncomingMess;
+export default UserChat;

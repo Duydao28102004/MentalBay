@@ -30,7 +30,7 @@ const ArticleMenu = () => {
 
   return (
     <>
-      <div className="w-3/5 mx-auto mt-8 p-4">
+      <div className="md:w-3/5 w-5/6 mx-auto mt-8 p-4">
         <h2 className="text-2xl font-semibold mb-4">Article Menu</h2>
         <ul>
           {articles.map((article) => (
@@ -48,9 +48,9 @@ const ArticleMenu = () => {
                       article.topic === 'bipolardisorders' ? 'Bipolar Disorders' :
                         article.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
                           article.topic === 'depression' ? 'Depression' :
-                            article.topic}
-                    <span className='ml-12'>Created date: {article.createDate}</span>
+                            article.topic} 
                   </p>
+                  <p className='text-gray-500'>Created date: {article.createDate}</p>
                   <p className="my-4">{article.detail.substring(0, 400)}{article.detail.length > 400 ? "..." : ""}</p>
                 </div>
                 <Link to={`/articles/detail/${article._id}`}>

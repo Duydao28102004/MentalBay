@@ -31,30 +31,47 @@ const PodcastComponent = () => {
     const displayedPodcasts = userData.userType === 'doctor' ? podcasts.slice(0, 4) : podcasts.slice(0, 1);
 
     return (
-        <><div className="mb-10">
-            <h1 className="text-4xl text-center font-bold mb-10">Podcasts</h1>
-            <div className="flex flex-col">
+        <>
+        {userData.userType === 'user' ? (
+            <div className="mb-10">
+                <h1 className="text-4xl text-center font-bold mb-10">Podcasts</h1>
+                <div className="flex flex-col">
+                    {displayedPodcasts.map((podcast) => (
+                        <div key={podcast._id} className='flex flex-row my-10'>
+                            <div className='w-1/2'>
+                                <h2 className="text-3xl font-bold mb-4">{podcast.title}</h2>
+                                <p className="mb-4">{podcast.createDate}</p>
+                                <p className="mb-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>
+                                <Link to={`/podcasts/detail/${podcast._id}`} className="items-center">
+                                    <button className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-green-400">
+                                        Read More
+                                    </button>
+                                </Link>
+                            </div>
+                            <img src={podcast.base64Image} alt={podcast.title} className="w-full md:w-1/2 h-auto md:ml-8 mb-4 md:mb-0"/>
+                        </div>
+                    ))}
+                </div>
+            </div>
+        ) : (
+            <div className='flex flex-col bg-gray-100 px-2 py-2 h-fit rounded shadow'>
+                <h2 className="text-3xl font-bold mb-4">Podcasts</h2>
                 {displayedPodcasts.map((podcast) => (
                     <>
-                    <div className='flex flex-row my-10'>
-                      <div className='w-1/2'>
-                          <h2 className="text-3xl font-bold mb-4">{podcast.title}</h2>
-                          <p className="mb-4">{podcast.createDate}</p>
-                          <p className="mb-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>
-                          {/* Add more text as needed */}
-                          <Link to={`/podcasts/detail/${podcast._id}`} className="items-center">
-                              <button className="px-4 py-2 bg-green-300 text-white rounded-md hover:bg-green-400">
-                                Read More
-                              </button>
-                          </Link>
-                      </div>
-                      <img src={podcast.base64Image}  alt={podcast.title}className="w-full md:w-1/2 h-auto md:ml-8 mb-4 md:mb-0"/>
-                    </div>
-                        
+                    <Link to={`/podcasts/detail/${podcast._id}`} className="items-center mb-10">
+                        <div key={podcast._id} className="flex w-full ">
+                            <img src={podcast.base64Image} alt={podcast.title} className="w-full"/>
+                        </div>
+                        <div className="flex flex-col w-full">
+                            <h2 className="text-2xl font-bold ">{podcast.title}</h2>
+                            <p className="mb-4">Created date: {podcast.createDate}</p>
+                        </div>            
+                    </Link>
                     </>
                 ))}
             </div>
-        </div></>
+        )}
+        </>
     );
 };
 

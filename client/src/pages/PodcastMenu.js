@@ -33,7 +33,7 @@ const PodcastMenu = () => {
 
   return (
     <>
-      <div className="w-3/5 mx-auto mt-8 p-4">
+      <div className="md:w-3/5 w-5/6 mx-auto mt-8 p-4">
         <h2 className="text-2xl font-semibold mb-4">Podcast Menu</h2>
         <ul>
           {podcasts.map((podcast) => (
@@ -52,8 +52,8 @@ const PodcastMenu = () => {
                         podcast.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
                           podcast.topic === 'depression' ? 'Depression' :
                             podcast.topic}
-                    <span className='ml-12'>Created date: {podcast.createDate}</span>
                   </p>
+                  <span className='text-gray-500'>Created date: {podcast.createDate}</span>
                   <p className="my-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>
                 </div>
                 <Link to={`/podcasts/detail/${podcast._id}`}>

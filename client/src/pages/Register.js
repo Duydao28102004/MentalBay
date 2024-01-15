@@ -59,13 +59,13 @@ const Register = () => {
 
   return (
     <div className="flex items-center justify-center h-screen">
-      <div className="bg-white p-8 rounded shadow-md w-full max-w-md">
-        <h1 className="text-pink-500 text-center text-2xl m-0 mb-11">Wellcome to MentalBay</h1> 
+      <div className="bg-white p-8 rounded shadow-md w-full md:w-2/5">
+        <h1 className="text-pink-500 text-center text-4xl m-0 mb-20">Mental Bay</h1> 
         <form onSubmit={handleSubmit}>
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">Username:</label>
             <input
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 mb-12"
               type="text"
               value={username}
               onChange={handleUsernameChange}
@@ -74,7 +74,7 @@ const Register = () => {
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">Password:</label>
             <input
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 mb-12"
               type="password"
               value={password}
               onChange={handlePasswordChange}
@@ -83,7 +83,7 @@ const Register = () => {
           <div className="mb-4">
             <label className="block text-sm font-semibold mb-2">User Type:</label>
             <select
-              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+              className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 mb-12"
               value={userType}
               onChange={handleUserTypeChange}
             >
@@ -98,7 +98,7 @@ const Register = () => {
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">What is your concern?</label>
               <select
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 mb-12"
                 value={userTopic}
                 onChange={handleUserTopicChange}
               >
@@ -116,7 +116,7 @@ const Register = () => {
             <div className="mb-4">
               <label className="block text-sm font-semibold mb-2">Major:</label>
               <select
-                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500"
+                className="w-full px-4 py-2 border rounded focus:outline-none focus:border-blue-500 mb-12"
                 value={userTopic}
                 onChange={handleUserTopicChange}
               >

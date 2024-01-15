@@ -35,17 +35,17 @@ const ArticleComponent = () => {
   const displayedArticles = userData.userType === 'doctor' ? articles.slice(0, 4) : articles.slice(0, 1);
 
   return (
-    <div className="mb-10">
-      <h1 className="text-4xl text-center font-bold">Articles</h1>
+    <div className={`mb-10 ${userData.userType === 'doctor' ? 'w-full md:w-3/4 mr-6' : 'w-full'} `}>
+      <h1 className={`text-4xl text-center font-bold ${userData.userType === 'doctor' ? 'hidden' : ''} `}>Articles</h1>
 
       {loading ? (
         <p className="text-center">Loading...</p>
       ) : (
-        <div className="flex flex-col ">
+        <div className="flex flex-col">
           {displayedArticles.map((article) => (
             <React.Fragment key={article._id}>
-              <div className='flex flex-row my-10'>
-              <img src={article.base64Image} alt={article.title} className="w-full md:w-1/2 h-auto md:mr-8 mb-4 md:mb-0" />
+              <div className={`flex flex-col md:flex-row mb-10 ${userData.userType === 'doctor' ? '' : 'mt-10'} `}>
+              <img src={article.base64Image} alt={article.title} className={`${userData.userType === 'doctor' ? 'md:w-2/5' : 'md:w-1/2'}  w-full h-auto md:mr-8 mb-4 md:mb-0`} />
               <div>
                 <h2 className="text-3xl font-bold mb-4">{article.title}</h2>
                 <p className="mb-4">{article.createDate}</p>

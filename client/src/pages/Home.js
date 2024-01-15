@@ -34,14 +34,21 @@ const Home = () => {
 
   return (
     <>
-    <div className="p-4 w-3/4 mx-auto">
+    <div className="p-4 w-full md:w-3/4 mx-auto">
       
       {userData.userType === 'doctor' ? (
         <>
-        <DoctorIncomingMess />
-        <DoctorButton />
-        <ArticleComponent></ArticleComponent>
-        <PodcastComponent></PodcastComponent>
+        
+        <div className="md:w-3/4 w-full flex items-center align-center mb-10">
+          <DoctorButton />
+        </div>
+        <div className='flex flex-col mx-auto w-5/6 md:w-full md:flex-row'>
+          <ArticleComponent></ArticleComponent>
+          <div className='flex flex-col w-full mx-auto md:w-1/4'>
+            <DoctorIncomingMess />
+            <PodcastComponent></PodcastComponent>
+          </div>
+        </div>
         </>
       ) : (
         <>

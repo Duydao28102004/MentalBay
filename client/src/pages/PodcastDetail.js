@@ -47,15 +47,21 @@ const PodcastDetail = () => {
 
   return (
     <>
-    <div className="w-3/4 mx-auto mt-8 p-4 bg-white rounded shadow-lg">
+    <div className="md:w-3/4 w-5/6 mx-auto mt-8 p-4 bg-white rounded shadow-lg">
     
-      <div className="flex flex-row">
+      <div className="flex flex-col md:flex-row">
         <YoutubeComponent videoId={extractYouTubeVideoId(podcast.link)} />
         <div className=" justify-between mt-8 ml-6">
           <div className='mb-6'>
           <strong className="text-lg">{podcast.title}</strong>
-          <p className="text-gray-600">Topic: {podcast.topic}
-          <span className="text-gray-500 ml-12">Created on: {podcast.createDate}</span></p>
+          <p className="text-gray-500">
+                    Topic: {podcast.topic === 'anxietydisorders' ? 'Anxiety Disorders' :
+                      podcast.topic === 'bipolardisorders' ? 'Bipolar Disorders' :
+                        podcast.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
+                          podcast.topic === 'depression' ? 'Depression' :
+                            podcast.topic}
+                  </p>
+                  <span className='text-gray-500'>Created date: {podcast.createDate}</span>
           </div>
           <p className="text-gray-700"> <strong>Summary:</strong> {podcast.detail}</p>
         </div>

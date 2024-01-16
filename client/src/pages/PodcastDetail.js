@@ -5,10 +5,11 @@ import { useParams } from 'react-router-dom';
 import { useCheckAuth } from '../components/checkauth';
 import YoutubeComponent from '../components/YoutubeComponent';
 import { Link } from 'react-router-dom';
-
+import Gray from '../assets/gray.png';
 
 const PodcastDetail = () => {
   const { podcastId } = useParams();
+  const [loading, setLoading] = useState(true);
   const [podcast, setPodcast] = useState(null);
   const checkAuth = useCheckAuth();
 
@@ -17,8 +18,10 @@ const PodcastDetail = () => {
       try {
         const response = await axios.get(`http://localhost:3001/api/getpodcast/${podcastId}`);
         setPodcast(response.data);
+        setLoading(false);
       } catch (error) {
         console.error('Error fetching podcast details:', error);
+        setLoading(false);
       }
     };
 
@@ -37,24 +40,36 @@ const PodcastDetail = () => {
     return match ? match[1] : null;
   };
 
-  if (!podcast) 
-    return (
-      <>
-      <p>Loading...</p>
-      </>
-      
-    )
-
   return (
     <>
     <div className="md:w-3/4 w-5/6 mx-auto mt-8 p-4 bg-white rounded shadow-lg">
     
-      <div className="flex flex-col md:flex-row">
-        <YoutubeComponent videoId={extractYouTubeVideoId(podcast.link)} />
-        <div className=" justify-between mt-8 ml-6">
-          <div className='mb-6'>
-          <strong className="text-lg">{podcast.title}</strong>
-          <p className="text-gray-500">
+      
+        {loading ? (
+          <><div className="flex flex-col md:flex-row">
+            <img src={Gray} className="w-full md:w-1/2"></img>
+            <div className=" justify-between mt-8 ml-6">
+              <div className='mb-6'>
+                <strong className="text-lg"></strong>
+                <p className="text-gray-500">
+                  Topic: 
+                </p>
+                <span className='text-gray-500'>Created date</span>
+              </div>
+              <p className="text-gray-700"> <strong>Summary:</strong> </p>
+            </div>
+          </div><div className="mt-12 text-right">
+              <Link to="/podcasts" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
+                ← Back to Podcast menu
+              </Link>
+            </div></>
+        ) : (
+          <><div className="flex flex-col md:flex-row">
+              <YoutubeComponent videoId={extractYouTubeVideoId(podcast.link)} />
+              <div className=" justify-between mt-8 ml-6">
+                <div className='mb-6'>
+                  <strong className="text-lg">{podcast.title}</strong>
+                  <p className="text-gray-500">
                     Topic: {podcast.topic === 'anxietydisorders' ? 'Anxiety Disorders' :
                       podcast.topic === 'bipolardisorders' ? 'Bipolar Disorders' :
                         podcast.topic === 'ocd' ? 'Obsessive-Compulsive Disorder' :
@@ -62,15 +77,15 @@ const PodcastDetail = () => {
                             podcast.topic}
                   </p>
                   <span className='text-gray-500'>Created date: {podcast.createDate}</span>
-          </div>
-          <p className="text-gray-700"> <strong>Summary:</strong> {podcast.detail}</p>
-        </div>
-      </div>
-      <div className="mt-12 text-right">
-        <Link to="/podcasts" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
-          ← Back to Podcast menu
-        </Link>
-      </div>
+                </div>
+                <p className="text-gray-700"> <strong>Summary:</strong> {podcast.detail}</p>
+              </div>
+            </div><div className="mt-12 text-right">
+                <Link to="/podcasts" className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 focus:outline-none">
+                  ← Back to Podcast menu
+                </Link>
+              </div></>
+        )}
     </div>
     </>
   );

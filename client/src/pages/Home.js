@@ -52,14 +52,14 @@ const Home = () => {
         </>
       ) : (
         <>
-        <div className="flex items-center justify-between mb-10">
-        <div className="text-center mb-4 w-1/2">
+        <div className="md:flex items-center justify-between mb-10">
+        <div className="text-center mb-4 md:w-1/2">
           <h1 className="text-4xl font-bold">Empowering <span className='text-pink-500'>Minds</span>, <span className='text-green-500'>Anytime</span>, <span className='text-blue-500'>Anywhere</span>: Your Path to Premier Mental Health Services.</h1>
 
         </div>
-        <img src={mentalHealthBanner} alt="Mental Health Banner" className="w-1/2 rounded" />
+        <img src={mentalHealthBanner} alt="Mental Health Banner" className="md:w-1/2 rounded" />
       </div>
-      <div className="grid grid-cols-3 gap-4 mb-10">
+      <div className="grid md:grid-cols-3 gap-4 mb-10">
         <div className="bg-green-100 p-4 rounded">
           <img src={academicIcon} alt='academic icon' className='w-10'></img>
           <h2 className='font-bold text-2xl mb-4'>Academic resources</h2>

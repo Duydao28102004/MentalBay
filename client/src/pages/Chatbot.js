@@ -62,7 +62,7 @@ function App() {
   return (
     <>
       <div className="flex h-screen justify-center">
-        <div className="mt-10 w-3/5 flex bg-white rounded-md shadow-md">
+        <div className="mt-10 w-full md:w-3/5 flex bg-white rounded-md shadow-md">
           <div className="hidden lg:block w-1/4 m-5 bg-gray-200 p-4">
             <div className="flex flex-col space-y-4">
               <div className="flex items-center space-x-2">

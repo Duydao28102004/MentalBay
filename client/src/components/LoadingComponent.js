@@ -27,7 +27,7 @@ const LoadingComponent = ({ spinnerSrc }) => {
   }, []);
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-200 w-3/5 mx-auto">
+    <div className="flex items-center justify-center mx-auto">
       <div className="text-center">
         <p className="font-bold">{loadingText}</p>
       </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useCheckAuth } from './checkauth';
 import { useSession } from './IsLoggedIn';
 import axios from 'axios';
+import LoadingComponent from './LoadingComponent';
 
 const ArticleComponent = () => {
   const [articles, setArticles] = useState([]);
@@ -39,7 +40,7 @@ const ArticleComponent = () => {
       <h1 className={`text-4xl text-center font-bold ${userData.userType === 'doctor' ? 'hidden' : ''} `}>Articles</h1>
 
       {loading ? (
-        <p className="text-center">Loading...</p>
+        <LoadingComponent />
       ) : (
         <div className="flex flex-col">
           {displayedArticles.map((article) => (

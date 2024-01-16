@@ -51,16 +51,16 @@ const ChatDoctorList = () => {
     <>
       <div className="flex items-center justify-center ">
         <div className="p-4 w-3/4">
-          <div className='flex flex-row'>
-            <img src={doctorAva} alt="doctorimg" className='w-2/4 rounded mr-4'></img>
-            <div className='w-2/4'>
+          <div className='flex flex-col md:flex-row'>
+            <img src={doctorAva} alt="doctorimg" className='w-full md:w-1/2 rounded mr-4'></img>
+            <div className='w-full md:w-1/2'>
               <h2 className="text-2xl font-bold mb-4">Having a chat with doctors?</h2>
               <ul className="space-y-4 ">
                 {doctors.map((doctor) => (
-                  <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-4 shadow-md">
+                  <li key={doctor._id} className="flex items-center justify-between bg-white rounded p-2 md:p-4 shadow-md">
                     <div className='flex'>
                       <img src={doctorIcon} alt={doctor.username} className="w-10 h-10 mr-4" />
-                      <span className="text-lg font-semibold">{doctor.username} - {doctor.userTopic}</span>
+                      <span className="md:text-lg font-semibold">{doctor.username} - {doctor.userTopic}</span>
                     </div>
                     <button
                       onClick={() => handleChatRoomCreation(doctor.username, userData.username)}

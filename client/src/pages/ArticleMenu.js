@@ -63,7 +63,7 @@ const ArticleMenu = () => {
         ) : (
           articles.map((article) => (
             <div key={article._id} className='flex mb-10'>
-              <div className="flex flex-col bg-gray-100 px-4 py-4 rounded">
+              <div className="flex flex-col bg-gray-100 px-4 py-4 rounded w-full">
                 <img
                   src={article.base64Image}
                   alt={article.title}

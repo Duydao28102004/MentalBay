@@ -63,7 +63,7 @@ const PodcastMenu = () => {
         ) : (
           podcasts.map((podcast) => (
             <div key={podcast._id} className='flex mb-10'>
-              <div className="flex flex-col bg-gray-100 px-4 py-4 rounded">
+              <div className="flex flex-col bg-gray-100 px-4 py-4 rounded w-full">
                 {/* Podcast content */}
                 <img
                   src={podcast.base64Image}

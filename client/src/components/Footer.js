@@ -1,8 +1,11 @@
 import React from 'react';
+import { useSession } from '../components/IsLoggedIn';
 
 const Footer = () => {
+  const { userData } = useSession();
+
   return (
-    <footer className="bg-gray-900 text-white py-8 w-full mt-10 self-end">
+    <footer className={`bg-gray-900 text-white py-8 w-full mt-10 self-end ${userData && Object.keys(userData).length === 0 ? 'hidden' : ''}`}>
       <div className="container mx-auto flex flex-col items-center">
         <p className="text-lg mb-4">Stay Connected</p>
       <div className="flex space-x-4">

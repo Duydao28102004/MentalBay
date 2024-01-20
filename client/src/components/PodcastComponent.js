@@ -44,8 +44,8 @@ const PodcastComponent = () => {
                 ) : (
                     <div className="flex flex-col">
                         {displayedPodcasts.map((podcast) => (
-                            <div key={podcast._id} className='flex flex-row my-10'>
-                                <div className='w-1/2'>
+                            <div key={podcast._id} className='flex flex-col-reverse md:flex-row my-10'>
+                                <div className='md:w-1/2 w-full'>
                                     <h2 className="text-3xl font-bold mb-4">{podcast.title}</h2>
                                     <p className="mb-4">{podcast.createDate}</p>
                                     <p className="mb-4">{podcast.detail.substring(0, 400)}{podcast.detail.length > 400 ? "..." : ""}</p>

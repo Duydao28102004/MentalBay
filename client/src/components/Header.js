@@ -14,8 +14,8 @@ const Header = () => {
   };
 
   return (
-    <header className="mt-2">
-      <nav className="text-white p-4 text-center flex justify-between items-center w-3/4 mx-auto relative">
+    <header className={`mt-2 ${userData && Object.keys(userData).length === 0 ? 'hidden' : ''}`}>
+      <nav className="text-white p-4 text-center flex justify-between items-center w-full md:w-3/4 mx-auto relative">
         <Link to={'/'}>
           <h1 className="text-pink-500 m-0 font-serif text-3xl">MentalBay</h1>
         </Link>

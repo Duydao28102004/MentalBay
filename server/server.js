@@ -54,14 +54,10 @@ app.get('/api/mood-statistics/:username', async (req, res) => {
   try {
     const username = req.params.username;
     const user = await User.findOne({ username: username });
-
     if (!user) {
       return res.status(404).json({ error: 'User not found' });
     }
-    
     const userId = user._id.toString();
-    console.log(userId);
-
     // Count total mood data
     const totalMoods = await Mood.countDocuments({ userId });
 
